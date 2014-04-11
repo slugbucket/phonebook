@@ -1,0 +1,112 @@
+== README
+
+This Ruby on Rails application is built to facilitate the management of telephone
+extension records for a small to medium organisation.
+
+The original design called user records (phones) to be imported from an external
+source and thus are read-only except for extension, department and location details.
+
+It is desigend to provide different levels of access for those just permitted to assign
+extension numbers and those allowed to manipulate additional information.
+
+Authentication is achieved with devise and an LDAP directory.
+
+Departments are assigned one or more extension ranges from which extensions will be
+allocated to sub-department members. A sub-department may also be given use of a
+specific departmental extension range.
+
+Once an extension record is associated with a sub-department, the next 10 available
+extensions become available for selection from the select list.
+
+Rooms are associated with an extension by means of a text search box where typing letters
+matching part of a room's public name will display a list of possible matches from which the
+correct room can be selected.
+
+Simple search functions have been included to enable filtering by name, uid, extension
+number or sub-department.
+
+* Ruby version
+Application written for Rails 4 and Ruby 1.9.3 on Ubuntu 13.10 and 10.04
+Also known to work MS SQL Server 2008 R2 as the RDBMS. 
+Will require at version 3.2.13 of Metaskills' splendid activerecord-sqlserver-adapter if
+using named instances. Will also require version 0.91 of freetds with named instances.
+
+* System dependencies
+ - The application is coded to use LDAP (Sun Directory Server, OpenLDAP or Microsoft Active Directory)
+with devise_authenticatable.
+ - Uses CanCan for role-based authorisation.
+ - Uses the digg_pagination styling.
+ - Expects at least two roles, admin and editor, for CanCan authorisation.
+ - Default application assumes import of end-user records (phones) from an external source.
+ - CoffeScript is enabled although no actually used. Ubuntu 10.04 will require inclusion of therubyracer gem; Ubuntu 13.10 has a nodejs package. See https://github.com/sstephenson/execjs#readme
+ - Uses JQuery for the dynamic functions on the extensions form.
+
+* Configuration
+ - If using MS SQL Server remove MySQL-specifc references from the migrations.
+ - Create a new secret tokem with,
+ $ rake secret
+ 
+and save it in config/initializers/secret_token.rb
+
+* Database creation
+No particular requirements with regard to the database.
+
+A brief description of each table:
+ - extension_ranges: the first and last extension in a block to be assigned to a
+department or sub_department
+ - dialling_rights: The rights available to an extension (internal, local, national, etc)
+ - categories: departmental category to differentiate between desk phones and meeting rooms.
+ - departments: high-level departments
+ - sub_departments: departmental teams
+ - departments_extension_ranges: ranges of extensions used exclusively by particular
+departments
+ - extensions: lookup table populated to match extension_ranges records between first
+and last value.
+ - sub_department_extension_range_view: used to determine the next available block of
+extensions available in a range for a member of a sub-department.
+ - buildings: list of physical building locations; populated with data from space management system
+ - building_floors: LG, G, 1, 2, 3, etc
+ - room_statuses: whether a room should be hidden from a directory listing (useful for
+non-public rooms)
+ - phones: matches an extension number with a person and their location and
+sub-department
+ - roles: what levels of access to support, The app only recognises admin and editor
+ - users: user records as identified by devise. Defaults to phone and extension_range
+viewing
+ - activity_logs: logs controller inserts, updates and deletes - based loosely on Papertrail record structure.
+
+The create_roles migration is a hangover from the use of Rolify alongside CanCan.
+It was difficult to see what Rolify was adding to the design so it was removed.
+
+* Database initialization
+Construction of the database comes from a set of migration scripts.
+If using MySQL, use,
+, :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8'
+ for tables using InnoDB. Remove when using MS SQL Server
+ Run,
+rake db:migrate
+
+to build the database if the schema_migrations table already exists.
+
+* Testing
+Coming later
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+Used behind Phusion Passenger in development or productionenvironment.
+
+* Files to clean up and remove employer identifying content
+ - app/views/layouts/application.html.erb:
+ <%= image_tag("logo_LBS.gif", :width => 64, :height => 64) %>
+ 
+  - db/migrate/various
+  t.integer :lbsnumber
+  
+  app/assets/javascripts
+  app/assets/stylesheets
+
+ - db/migrate/20140228213722_create_buildings.rb:
+ t.string :name, :null => false, :default => 'LBS building', :limit => 32
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.

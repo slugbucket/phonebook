@@ -1,0 +1,8 @@
+<div id="findbyname">
+<%= form_tag('/search', :method => 'get') do %>
+<label for="findbyname-field" class="overlabel">Search by name, room, extension</label>
+<%= text_field_tag "findbyname", session[:search], id: "findbyname-field" %>
+<%= submit_tag "Go", :name => "seach_btn", :class => "button" %>
+<%= link_to "Clear", '#', {:id => "search", :onclick => "$('#findbyname-field').val('')"} %>
+<% end %>
+</div>

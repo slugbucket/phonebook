@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extension List management</title>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+ <div id="banner">
+ <div id="heading">
+  <div id="logo">
+  <%= image_tag("company_logo.gif", :width => 64, :height => 64) %>
+  </div>
+  <div id="title">
+  <h2>Telephone Extension List Management</h2>
+  </div>
+ </div> <!-- heading -->
+  <div id="login">
+	<% if current_user %>
+    <br />
+    Logged in as <%= current_user.username %>. <%= link_to "Logout", destroy_user_session_path, :method => 'delete' %>
+    <% else %>
+    <%= link_to 'Login', new_user_session_path, :id => 'login-link' %>
+    <% end %>
+  </div> <!-- search -->
+  <div style="clear: both;"></div>
+  <div id="nav">
+    <ul class="navbar"><li><%= link_to "Extensions", "/phones" %></li><li><%= link_to "Extension ranges", "/extension_ranges" %></li><% if can? :edit, SubDepartment %><li><%= link_to "Sub departments", "/sub_departments" %></li><% end %>
+	<% if can? :edit, Department %><li><%= link_to "Departments", "/departments" %></li><% end %><% if can? :edit, Category %><li><%= link_to "Categories", "/categories" %></li><% end %><% if can? :edit, Room %><li><%= link_to "Locations", "/rooms" %></li><% end %><% if can? :create, Role %><li><%= link_to "Roles", "/roles" %></li><% end %><% if can? :edit, User %><li><%= link_to "User", "/users" %></li><% end %></ul>
+  </div>
+</div> <!-- banner -->
+<br />
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+<%= yield %>
+<p>
+<div id="footer">
+Company name, January 2014
+</div>
+</p>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<p>
+  <strong>Name:</strong>
+  <%= @sub_department.name %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= Department.find(@sub_department.department_id).name %>
+</p>
+
+<p>
+  <strong>SchoolDB sub-department code:</strong>
+  <%= @sub_department.sub_department_code %>
+</p>
+
+<p>
+  <strong>Extension range:</strong>
+  <% if@sub_department.preferred_extension_range_id? then %>
+    <% ExtensionRange.preferred_sub_dept(@sub_department.id).map{ |e| [e.first_extension, e.last_extension]}.each do |e| %>
+      <%= "#{e[0]} - #{e[1]}" %><br />
+	<% end %>  
+  <% else %>
+    <% ExtensionRange.department_range(@sub_department.department_id).map{ |e| [e.first_extension, e.last_extension]}.each do |e| %>
+      <%= "#{e[0]} - #{e[1]}" %><br />
+	<% end %>
+  <% end %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_sub_department_path(@sub_department) %> |
+<%= link_to 'Back', sub_departments_path %>
+</div>

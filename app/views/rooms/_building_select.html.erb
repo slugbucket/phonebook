@@ -1,0 +1,4 @@
+<%= form_tag "/rooms", :method => "GET", :authenticity_token => false do %>
+<%= select(nil, "building", options_from_collection_for_select(Building.order(:name), :id, :name, selected: session[:bldng]), {:prompt => "Building"}) %>
+<%= submit_tag "Go", :name => nil, :class => "button"  %>
+<% end %>

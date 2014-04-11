@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: Good Department
+  category_id: 1
+  active: true
+  department_code: 01
+  created_at: 2014-01-05 12:09:36
+  updated_at: 2014-01-05 12:09:36
+
+two:
+  id: 2
+  name: Bad Department
+  category_id: 2
+  active: true
+  department_code: 31
+  created_at: 2014-01-05 12:09:36
+  updated_at: 2014-01-05 12:09:36

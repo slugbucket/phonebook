@@ -1,0 +1,63 @@
+<%= form_for(@phone) do |f| %>
+  <% if @phone.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@phone.errors.count, "error") %> prohibited this phone from being saved:</h2>
+
+      <ul>
+      <% @phone.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<p>
+Because the user name and uid details are pre-populated from an external source, they are not editable.<br />
+</p>
+  <div style="display: inline; float: left; width: 60%;">
+    <fieldset><legend>Account details</legend>
+
+      <div> <!-- wrapper around account details and help divs -->
+        <div class="field" style="float: left;">
+          <%= f.label :firstname %><br />
+          <%= f.text_field :firstname, {:size => 16, :disabled => true} %>
+        </div>
+        <div class="field">
+           <%= f.label :surname %><br />
+           <%= f.text_field :surname, {:size => 20, :disabled => true} %>
+        </div>
+        <div class="field">
+          <%= f.label :uid, "Uid" %><br />
+          <%= f.text_field :uid, {:size => 16, :disabled => true} %>
+        </div>
+        <div class="field">
+          <%= f.label :sub_department_id, "Sub department" %><br />
+          <%= f.collection_select :sub_department_id, SubDepartment.where("department_id IS NOT NULL").order("department_id, name"), :id, :dept_subdept_name, {:prompt => 'Select sub-department'} %><br />
+        </div>
+
+
+		<div class="field">
+    <%= f.label :room_id, "Location" %><br />
+    <!-- %= f.text_field :room_ids, "data-pre" => @phone.rooms.map(&:attributes).to_json, :class => "phonebbok" % -->
+	<%= f.text_field :room_id, "data-pre" => Room.select(:id, :name).where(id: @phone.room_id).map(&:attributes).to_json %>
+  </div>
+  
+        <div style="clear: both" />
+  
+  
+        <div class="field" style="float: left; width: 30%;">
+          <%= f.label :extension_id, "Extension" %><br />
+          <%= f.collection_select :extension_id, Extension.sub_dept_next(@phone.sub_department_id)+Extension.where(:id => @phone.extension_id), :id, :extension, {:prompt => 'Select extension'} %>  
+        </div>
+		<div class="field">
+	      <%= f.label :dialling_right_id, "Dialling right" %><br />
+		  <%= f.collection_select :dialling_right_id, DiallingRight.all, :id, :name, {:prompt => 'Dialling right'} %>
+      </div>
+    </fieldset>
+  </div>
+
+  <div style="clear: both;"></div>
+
+  <div class="actions">
+    <%= f.submit :class => 'button' %>
+  </div>
+<% end %>

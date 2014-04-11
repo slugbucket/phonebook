@@ -1,0 +1,29 @@
+<%= form_for(@dialling_right) do |f| %>
+  <% if @dialling_right.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dialling_right.errors.count, "error") %> prohibited this dialling_right from being saved:</h2>
+
+      <ul>
+      <% @dialling_right.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="display: inline; float: left; width: 60%;">
+    <fieldset><legend>Dialling right details</legend>
+    <div> <!-- wrapper around  details -->
+    <div class="field" style="float: left;">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :class => "phonebook" %><br />
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :class => "phonebook" %>
+  </div>
+  </div>
+  </fieldset>
+  <div class="actions">
+    <%= f.submit :class => 'button' %>
+  </div>
+  <div style="clear: both;"></div>
+<% end %>

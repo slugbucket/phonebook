@@ -1,0 +1,4 @@
+<%= form_tag "/phones", :method => "GET", :authenticity_token => false do %>
+<%= select(nil, "subdept", options_from_collection_for_select(SubDepartment.order(:name), :id, :name, selected: session[:phone_subdept]), {:prompt => "Sub-department"}) %>
+<%= submit_tag "Go", :name => nil, :class => "button"  %>
+<% end %>

@@ -1,0 +1,36 @@
+<p>
+  <strong>Name:</strong>
+  <%= @department.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= Category.find(@department.category_id).name %>
+</p>
+
+<p>
+  <strong>SchoolDB department code:</strong>
+  <%= @department.department_code %>
+</p>
+
+<p>
+  <strong>Default dialling right:</strong>
+  <%= DiallingRight.dialling_right_name(@department.default_dialling_right_id) %>
+</p>
+
+<p>
+  <strong>Extension ranges:</strong>
+		<% if @department.extension_ranges.any? then %>
+		<br />
+			  <% @department.extension_ranges.order(:first_extension).map{|e| [e.first_extension, e.last_extension]}.each  do |er|  %>
+   <%= " - #{er[0]} - #{er[1]}" %><br />
+  <% end %>
+		<% else %>
+		<td>None</td>
+		<% end %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_department_path(@department) %> |
+<%= link_to 'Back', departments_path %>
+</div>

@@ -1,0 +1,29 @@
+<p>
+  <strong>Name:</strong>
+  <%= @room.name %>
+</p>
+
+<p>
+  <strong>Public name:</strong>
+  <%= @room.public_name %>
+</p>
+
+<p>
+  <strong>Room status:</strong>
+  <%= RoomStatus.room_status_name(@room.room_status_id) %>
+</p>
+
+<p>
+  <strong>Building:</strong>
+  <%= Building.building_name(@room.building_id) %>
+</p>
+
+<p>
+  <strong>Building floor:</strong>
+  <%= BuildingFloor.building_floor_name(@room.building_floor_id).html_safe %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>
+</div>

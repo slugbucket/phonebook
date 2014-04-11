@@ -1,0 +1,50 @@
+<p>
+  <strong>Name:</strong>
+  <%= @phone.user_name %>
+</p>
+
+<p>
+  <strong>UID:</strong>
+  <%= @phone.uid %>
+</p>
+
+<p>
+	<strong>Location:</strong>
+	<% if @phone.room_id? %>
+    <%= Room.room_name(@phone.room_id) %>
+	<% else %>
+	Unallocated
+	<% end %>
+</p>
+
+<p>
+  <strong>Sub department:</strong>
+  <% if @phone.sub_department_id? %>
+  <%= SubDepartment.subdept_name(@phone.sub_department_id) %>
+  <% else %>
+Unassigned.
+  <% end %>
+</p>
+
+<p>
+  <strong>Extension:</strong>
+  <% if @phone.extension_id? %>
+  <%= Extension.ext_number(@phone.extension_id) %>
+  <% else %>
+Unallocated
+  <% end %>
+</p>
+
+<p>
+  <strong>Dialling right:</strong>
+  <% if @phone.dialling_right_id? %>
+  <%= DiallingRight.dialling_right_name(@phone.dialling_right_id) %>
+  <% else %>
+Unallocated
+  <% end %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_phone_path(@phone) %> |
+<%= link_to 'Back', phones_path %>
+</div>

@@ -1,0 +1,45 @@
+<%= form_for(@department) do |f| %>
+  <% if @department.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@department.errors.count, "error") %> prohibited this department from being saved:</h2>
+
+      <ul>
+      <% @department.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="display: inline; float: left; width: 60%;">
+    <fieldset><legend>Department details</legend>
+    <div> <!-- wrapper around  details -->
+      <div class="field" style="float: left;">
+        <%= f.label :name, "Department name" %><br />
+        <%= f.text_field :name, :class => "phonebook" %>
+	  </div>
+      <div class="field">
+		<%= f.label :department_code, "Department ncode", :class => "phonebook" %><br />
+        <%= f.text_field :department_code, { :class => "phonebook", :size => 4} %>
+      </div>
+	  <div class="field" style="float: left;">
+        <%= f.label :category_id %><br />
+        <%= f.collection_select :category_id, Category.order(:name), :id, :name, {:selected => @department.category_id,:prompt => 'Category'} %><br />
+        <%= f.label :extension_range_tokens, "Extension ranges" %><br />
+		<%= f.collection_select :extension_range_tokens, ExtensionRange.joins(" LEFT JOIN departments_extension_ranges ON id = extension_range_id AND extension_range_id IS NOT NULL").where("department_id = ? OR department_id IS NULL", @department.id).order(:first_extension), :id, :extension_range, {:selected => @department.extension_range_ids}, {:prompt => 'Extension ranges', :multiple => true, :size => 4} %><br />
+        <%= f.label :active %><br />
+        <%= f.check_box :active %>
+      </div>
+	  <div class="field" style="float: left;">
+        <%= f.label :default_dialling_right_id, "Default dialling right" %><br />
+        <%= f.collection_select :default_dialling_right_id, DiallingRight.order(:name), :id, :name, {:selected => @department.default_dialling_right_id,:prompt => 'Dialling right'} %><br />
+       </div>
+	</div>
+    </fieldset>
+
+    <div class="actions">
+      <%= f.submit :class => 'button' %>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+<% end %>

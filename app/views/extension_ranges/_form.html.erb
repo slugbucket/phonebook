@@ -1,0 +1,33 @@
+<%= form_for(@extension_range) do |f| %>
+  <% if @extension_range.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@extension_range.errors.count, "error") %> prohibited this extension_range from being saved:</h2>
+
+      <ul>
+      <% @extension_range.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="display: inline; float: left; width: 60%;">
+    <fieldset><legend>Department details</legend>
+    <div> <!-- wrapper around  details -->
+      <div class="field" style="float: left;">
+    <%= f.label :first_extension %><br />
+    <%= f.text_field :first_extension, { :class => "phonebook", :size => 4} %><br />
+    <%= f.label :last_extension %><br />
+    <%= f.text_field :last_extension, { :class => "phonebook", :size => 4} %><br />
+    <%= f.label :department_tokens, "Department" %><br />
+    <%= f.collection_select :department_tokens, Department.order(:name), :id, :name, {:selected => @extension_range.department_ids,:prompt => 'Department'} %><br /><br />
+      </div>
+	</div>
+    </fieldset>
+
+    <div class="actions">
+      <%= f.submit :class => 'button' %>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+<% end %>

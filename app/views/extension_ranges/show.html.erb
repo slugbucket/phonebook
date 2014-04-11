@@ -1,0 +1,27 @@
+<p>
+  <strong>First extension:</strong>
+  <%= @extension_range.first_extension %>
+</p>
+
+<p>
+  <strong>Last extension:</strong>
+  <%= @extension_range.last_extension %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+		<% if @extension_range.departments.any? then %>
+			  <% @extension_range.departments.map(&:name).each do |d| %>
+   <%= "#{d}" %><br />
+  <% end %>
+		<% else %>
+		<td>None</td>
+		<% end %>
+</p>
+
+<div class="phonebook">
+	<% if can? :edit, ExtensionRange %>
+<%= link_to 'Edit', edit_extension_range_path(@extension_range) %> |
+<% end %>
+<%= link_to 'Back', extension_ranges_path %>
+</div>

@@ -1,0 +1,46 @@
+<div id="mainbody">
+<h2>Listing dialling rights</h2>
+<p>
+<div class="digg_pagination">
+<%= will_paginate @dialling_rights %>&nbsp;<%= link_to 'New dialling right', new_dialling_right_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <% if can? :edit, Department %>
+      <th></th>
+	  <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dialling_rights.each do |dialling_right| %>
+      <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+      	<td><%= link_to_modal dialling_right.name, dialling_right %></td>
+      	<td><% if can? :edit, DiallingRight %>
+      	<%= link_to image_tag("edit-icon.png", :size => "16x16", :title => "Edit details"), edit_dialling_right_path(dialling_right) %>
+        <% else %>
+        &nbsp
+        <% end %></td>
+        <td><%= dialling_right.description %></td>
+		<% if can? :edit, DiallingRight %>
+        <%= render :partial => "shared/delete_link", :object => dialling_right, :locals => {:display => "Delete #{dialling_right.id}" } %>
+		<% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+<p>
+<div class="digg_pagination">
+<%= will_paginate @dialling_rights %>&nbsp;<%= link_to 'New dialling right', new_dialling_right_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+</div>

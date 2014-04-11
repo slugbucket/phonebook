@@ -1,0 +1,60 @@
+<div id="mainbody">
+<h2>Listing rooms</h2>
+<p><div id="searchpane">
+Filter the listed rooms by name match, public name or building.<br />
+<%= render :partial => 'room_search' %>
+
+<%= render :partial => "building_select" %>
+</div>
+</p>
+<br />
+<br />
+<div style="clear: both"></div>
+<p>
+<div class="digg_pagination">
+<%= will_paginate @rooms %>&nbsp;<%= link_to 'New room', new_room_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+<br />
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Public name</th>
+	  <th></th>
+      <th>Building</th>
+      <th>Building floor</th>
+	  <th>Room status</th>
+      <% if can? :edit, Room %>
+      <th></th>
+	  <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rooms.each do |room| %>
+      <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+        <td><%= link_to_modal room.public_name, room %></td>
+      	<td><% if can? :edit, Room %>
+      	<%= link_to image_tag("edit-icon.png", :size => "16x16", :title => "Edit details"), edit_room_path(room) %>
+        <% else %>
+        &nbsp;
+        <% end %></td>
+        <td><%= Building.building_name(room.building_id) %></td>
+        <td><%= BuildingFloor.building_floor_name(room.building_floor_id) %></td>
+		<td><%= RoomStatus.room_status_name(room.room_status_id) %></td>
+        <% if can? :edit, Room %>
+        <%= render :partial => "shared/delete_link", :object => room, :locals => {:display => "Delete #{room.public_name}" } %>
+		<% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+<p>
+<div class="digg_pagination">
+<%= will_paginate @rooms %>&nbsp;<%= link_to 'New room', new_room_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+</div>

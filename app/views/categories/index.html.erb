@@ -1,0 +1,41 @@
+<div id="mainbody">
+<h2>Listing categories</h2>
+<p>
+<div class="digg_pagination">
+<%= will_paginate @categories %>&nbsp;<%= link_to 'New Category', new_category_path %>
+</div>
+</p>
+<!-- %= "user logged in is #{current_user.username}.<br />\n" % -->
+<p style="clear: both">
+<br />
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Name</th>
+	  <th></th>
+	  <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+        <td><%= link_to_modal category.name, category %></td>
+        <td>
+        <% if can? :edit, Category %>
+        <%= link_to image_tag("edit-icon.png", :size => "16x16", :title => "Edit details"), edit_category_path(category) %>
+        <% end %>
+        </td>
+        <%= render :partial => "shared/delete_link", :object => category, :locals => {:display => "Delete #{category.id}" } %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+<p>
+<div class="digg_pagination">
+<%= will_paginate @categories %>&nbsp;<%= link_to 'New Category', new_category_path %>
+</div>
+</p>
+<p style="clear: both">
+</div>

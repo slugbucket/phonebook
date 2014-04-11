@@ -1,0 +1,50 @@
+<div id="mainbody">
+<h2>Listing Sub-departments</h2>
+
+<p>
+<div class="digg_pagination">
+<%= will_paginate @sub_departments %>&nbsp;<%= link_to 'New sub department', new_sub_department_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+<br />
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Sub department</th>
+	  <th></th>
+      <th>Department</th>
+      <th>Code</th>
+	  <th>Extension range</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sub_departments.each do |sub_department| %>
+      <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+      	<td><%= link_to_modal sub_department.name, sub_department %></td>
+      	<td><% if can? :edit, SubDepartment %>
+      	<%= link_to image_tag("edit-icon.png", :size => "16x16", :title => "Edit details"), edit_sub_department_path(sub_department) %>
+        <% else %>
+        &nbsp
+        <% end %></td>
+        <td><%= Department.find(sub_department.department_id).name %></td>
+        <td><%= sub_department.sub_department_code %></td>
+		<td><% ExtensionRange.select(:first_extension, :last_extension).where("id IN (SELECT extension_range_id FROM sub_department_extension_range_view WHERE sub_department_extension_range_view.sub_department_id = ?)", sub_department.id).map{ |e| [e.first_extension, e.last_extension]}.each  do |e| %>
+		<%= "#{e[0]} - #{e[1]}" %><br />
+		<% end %>
+		</td>
+        <%= render :partial => "shared/delete_link", :object => sub_department, :locals => {:display => "Delete #{sub_department.id}" } %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+<p>
+<div class="digg_pagination">
+<%= will_paginate @sub_departments %>&nbsp;<%= link_to 'New sub department', new_sub_department_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+</div>

@@ -1,0 +1,75 @@
+<div id="mainbody">
+<h2>Listing Telephone extensions</h2>
+
+<p>
+
+
+<div id="searchpane">
+Filter the listed extensions by surname match, room, extension or sub-department.<br />
+<!-- %= render :partial => 'by_letter' % -->
+<%= render :partial => 'shared/search' %>
+
+<%= render :partial => "subdept_select" %>
+</div>
+<br />
+<p style="clear: both">
+	<p>Because the list of names and uids are derived from an external source, new records cannot be created and existing records cannot be deleted.</p>
+</p>
+<div class="digg_pagination">
+<%= will_paginate @phones %>
+<br /><br />
+</div>
+<div style="clear: both"></div>
+
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th>Location</th>
+      <th>Sub-department</th>
+      <th>Extension</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @phones.each do |phone| %>
+      <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+        <td><%= link_to_modal phone.user_name, phone %></td>
+        <td>
+        <% if can? :edit, Phone %>
+        <%= link_to image_tag("edit-icon.png", :size => "16x16", :title => "Edit details"), edit_phone_path(phone) %>
+        <% end %>
+        </td>
+        <td><% if phone.room_id? %>
+        	<%= Room.room_name(phone.room_id) %>
+			<% else %>
+			None
+			<% end %>
+		</td>
+        <td>
+        	<% if phone.sub_department_id? %>
+        	<%= SubDepartment.subdept_name(phone.sub_department_id) %>
+			<% else %>
+			None
+			<% end %>
+        </td>
+        <td>
+        	<% if phone.extension_id? %>
+        	<%= Extension.ext_number(phone.extension_id) %>
+			<% else %>
+			None
+			<% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</p>
+
+<div class="digg_pagination">
+<%= will_paginate @phones %>
+</div>
+
+<p style="clear: both"></p>
+</div>

@@ -1,0 +1,39 @@
+<%= form_for(@sub_department) do |f| %>
+  <% if @sub_department.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sub_department.errors.count, "error") %> prohibited this sub_department from being saved:</h2>
+
+      <ul>
+      <% @sub_department.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="display: inline; float: left; width: 60%;">
+    <fieldset><legend>Sub-department details</legend>
+    <div> <!-- wrapper around  details -->
+      <div class="field" style="float: left;">
+        <%= f.label :name, "Sub department name" %><br />
+        <%= f.text_field :name, :class => "phonebook" %>
+	  </div>
+      <div class="field">
+      	<%= f.label :sub_department_code %><br />
+        <%= f.text_field :sub_department_code, {:class => "phonebook", :size => 4} %>
+      </div>
+	  <div class="field" style="float: left;">
+        <%= f.label :department_id %><br />
+        <%= f.collection_select :department_id, Department.order(:name), :id, :name, {:selected => @sub_department.department_id,:prompt => 'Department'} %><br />
+		<%= f.label :preferred_extension_range_id %><br />
+		<%= f.collection_select :preferred_extension_range_id, ExtensionRange.department_range(@sub_department.department_id).distinct.order(:first_extension), :id, :extension_range, {:selected => @sub_department.preferred_extension_range_id, :prompt => 'Preferrred range'} %><br />
+      </div>
+	</div>
+    </fieldset>
+
+    <div class="actions">
+      <%= f.submit :class => 'button' %>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+<% end %>

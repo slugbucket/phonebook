@@ -1,0 +1,50 @@
+<div id="mainbody">
+<h2>Extension ranges</h2>
+
+<p>
+<div class="digg_pagination">
+<%= will_paginate @extension_ranges %>&nbsp;<%= link_to 'New Extension range', new_extension_range_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+<br />
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr>
+      <th colspan="2">Extension range</th>
+      <th>Department</th>
+	  <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @extension_ranges.each do |extension_range| %>
+      <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+      	<td><%= link_to_modal extension_range.extension_range, extension_range %></td>
+        <td>
+        <% if can? :edit, ExtensionRange %>
+        <%= link_to image_tag("edit-icon.png", :size => "16x16", :title => "Edit details"), edit_extension_range_path(extension_range) %>
+        <% end %>
+        </td>
+		<td>
+		<% if extension_range.departments.any? then %>
+  <% extension_range.departments.map(&:name).each do |d| %>
+   <%= "#{d}" %><br />
+  <% end %>
+		<% else %>
+		None
+		<% end %>
+		</td>
+		<%= render :partial => "shared/delete_link", :object => extension_range, :locals => {:display => "Delete #{extension_range.id}" } %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+<p>
+<div class="digg_pagination">
+<%= will_paginate @extension_ranges %>&nbsp;<%= link_to 'New Extension range', new_extension_range_path %>
+</div>
+</p>
+<p style="clear: both"></p>
+</div>

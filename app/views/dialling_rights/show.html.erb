@@ -1,0 +1,14 @@
+<p>
+  <strong>Name:</strong>
+  <%= @dialling_right.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dialling_right.description %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_dialling_right_path(@dialling_right) %> |
+<%= link_to 'Back', dialling_rights_path %>
+</div>

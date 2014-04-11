@@ -1,0 +1,7 @@
+<div id="findbyext">
+<%= form_tag "/phones", :method => "GET", :authenticity_token => false do %>
+<label for="findbyext-field" class="overlabel">Type ext no.</label>
+<%= text_field_tag "findbyext", '', id: "findbyext-field" %>
+<%= submit_tag "Go", :name => nil, :class => "button"  %>
+<% end %>
+</div>

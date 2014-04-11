@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  public_name: MyString
+  room_status_id: 1
+  building_id: 1
+  building_floor_id: 1
+
+two:
+  name: MyString
+  public_name: MyString
+  room_status_id: 1
+  building_id: 1
+  building_floor_id: 1
