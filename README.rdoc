@@ -95,18 +95,3 @@ Coming later
 
 * Deployment instructions
 Used behind Phusion Passenger in development or productionenvironment.
-
-* Files to clean up and remove employer identifying content
- - app/views/layouts/application.html.erb:
- <%= image_tag("logo_LBS.gif", :width => 64, :height => 64) %>
- 
-  - db/migrate/various
-  t.integer :lbsnumber
-  
-  app/assets/javascripts
-  app/assets/stylesheets
-
- - db/migrate/20140228213722_create_buildings.rb:
- t.string :name, :null => false, :default => 'LBS building', :limit => 32
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
