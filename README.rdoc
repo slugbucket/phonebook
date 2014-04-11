@@ -33,7 +33,7 @@ using named instances. Will also require version 0.91 of freetds with named inst
 
 * System dependencies
  - The application is coded to use LDAP (Sun Directory Server, OpenLDAP or Microsoft Active Directory)
-with devise_authenticatable.
+ with devise_authenticatable.
  - Uses CanCan for role-based authorisation.
  - Uses the digg_pagination styling.
  - Expects at least two roles, admin and editor, for CanCan authorisation.
@@ -53,26 +53,26 @@ No particular requirements with regard to the database.
 
 A brief description of each table:
  - extension_ranges: the first and last extension in a block to be assigned to a
-department or sub_department
+   department or sub_department
  - dialling_rights: The rights available to an extension (internal, local, national, etc)
  - categories: departmental category to differentiate between desk phones and meeting rooms.
  - departments: high-level departments
  - sub_departments: departmental teams
  - departments_extension_ranges: ranges of extensions used exclusively by particular
-departments
+   departments
  - extensions: lookup table populated to match extension_ranges records between first
-and last value.
+   and last value.
  - sub_department_extension_range_view: used to determine the next available block of
-extensions available in a range for a member of a sub-department.
+   extensions available in a range for a member of a sub-department.
  - buildings: list of physical building locations; populated with data from space management system
  - building_floors: LG, G, 1, 2, 3, etc
  - room_statuses: whether a room should be hidden from a directory listing (useful for
-non-public rooms)
+   non-public rooms)
  - phones: matches an extension number with a person and their location and
-sub-department
+   sub-department
  - roles: what levels of access to support, The app only recognises admin and editor
  - users: user records as identified by devise. Defaults to phone and extension_range
-viewing
+   viewing
  - activity_logs: logs controller inserts, updates and deletes - based loosely on Papertrail record structure.
 
 The create_roles migration is a hangover from the use of Rolify alongside CanCan.
@@ -83,8 +83,8 @@ Construction of the database comes from a set of migration scripts.
 If using MySQL, use,
 , :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8'
  for tables using InnoDB. Remove when using MS SQL Server
- Run,
-rake db:migrate
+Run,
+ rake db:migrate
 
 to build the database if the schema_migrations table already exists.
 
