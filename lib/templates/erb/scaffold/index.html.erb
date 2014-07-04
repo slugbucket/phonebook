@@ -1,8 +1,8 @@
-<h2>Listing Locations</h2>
+<h2>Listing <%= class_name.humanize %></h2>
 <p>
 <div class="digg_pagination">  
 <%%= will_paginate @<%= table_name %> %>
-<%%= if can? :create, <%= class_name %> %>
+<%% if can? :create, <%= class_name %> %>
 <%%= link_to 'New <%= class_name %>', new_<%= singular_table_name %>_path %>
 <%% end %>
 </div>
@@ -13,34 +13,31 @@
   <thead>
     <tr class="serverlist">
     <th>Name</th>
-	  <th></th>
+    <th></th>
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
-      <th>
-<%%= <%= attribute.human_name %> -%>
-      </th>
+    <th><%= attribute.human_name %></th>
 <% end -%>
-      <th></th>
+    <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <%%= @<%= table_name %>.each do |<%= singular_table_name %>| %>
+    <%%= @<% table_name %>.each do |<%= singular_table_name %>| %>
     <tr class="<%%= cycle('ma_row_light', 'ma_row_dark') %>">
     <%%= render :partial => "shared/edit_link", :object => <%= singular_table_name %>, :locals => {:display => <%= singular_table_name %>.name, :edit_path => edit_<%= singular_table_name %>_path(<%= singular_table_name %>)} %>
-        <% attributes.reject(&:password_digest?).each do |attribute| -%>
-  <td>
-  <%%= <%= singular_table_name %>.<%= attribute.name %> -%>
-  </td>
-<% end -%>
+   <% attributes.reject(&:password_digest?).each do |attribute| -%>
+     <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+   <% end -%>
         <%%= render :partial => "shared/delete_link", :object => <%= singular_table_name %>, :locals => {:display => "Delete #{<%= singular_table_name %>.name}" } %>
         </tr>
+   <%% end -%>
   </tbody>
 </table>
 
 <p>
 <div class="digg_pagination">  
 <%%= will_paginate @<%= table_name %> %>
-<%%= if can? :create, <%= class_name %> %>
+<%% if can? :create, <%= class_name %> %>
 <%%= link_to 'New <%= class_name %>', new_<%= singular_table_name %>_path %>
 <%% end %>
 </div>

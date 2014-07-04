@@ -1,0 +1,10 @@
+<div id="mainbody">
+<h2>Editing <%= singular_table_name.humanize %></h2>
+
+<%%= render 'form' %>
+
+<div class="serverlist">
+<%%= link_to_modal  'Show', @<%= singular_table_name %> %>|
+<%%= link_to 'Back', <%= index_helper %>_path %>
+</div>
+</div>
