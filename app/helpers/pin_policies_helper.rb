@@ -1,0 +1,2 @@
+module PinPoliciesHelper
+end
