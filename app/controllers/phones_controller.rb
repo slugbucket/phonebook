@@ -39,11 +39,6 @@ class PhonesController < ApplicationController
   # GET /phones/1/edit
   def edit
     @ext = Extension.where(:id => @phone.extension_id)
-    if ! @phone.dialling_right_id
-      @dr = DiallingRight.new
-    else
-      @dr = DiallingRight.where(:id => @phone.dialling_right_id)
-    end
   end
 
   # GET /phones/1/free_extensions
@@ -123,10 +118,10 @@ class PhonesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def phone_params
-      params.require(:phone).permit(:sub_department_id, :extension_id, :dialling_right_id,:room_id)
-  end
+      params.require(:phone).permit(:sub_department_id, :extension_id, :room_id, :archiving_policy_id, :client_policy_id, :client_version_policy_id, :conferencing_policy_id, :dial_plan_policy_id, :external_access_policy_id, :location_policy_id, :mobility_policy_id, :persist_chat_policy_id, :pin_policy_id, :voice_policy_id)
+    end
   def set_initials
-    @first_letters = Phone.select("DISTINCT LOWER(SUBSTRING(phones.surname, 1, 1)) AS surname").order("surname").collect{|fl| "#{fl.surname}"}
+    #@first_letters = Phone.select("DISTINCT LOWER(SUBSTRING(phones.surname, 1, 1)) AS surname").order("surname").collect{|fl| "#{fl.surname}"}
     session.delete :phone_page if params[:page]
     session[:phone_page] ||= params[:page]
     if session[:phone_letter] != params[:q] && params[:q] then
@@ -139,7 +134,6 @@ class PhonesController < ApplicationController
       session.delete :phone_page if session[:phone_subdept] != params[:subdept].to_i
       session.delete :phone_sortcol
       session.delete :phone_subdept
-      Rails.logger.debug("DEBUG: Clearing current subdept session var to be replaced by #{params[:subdept]}.")
     end
     #session[:phone_subdept] ||= (params[:subdept].to_i > 0) ? params[:subdept].to_i : nil 
     session[:phone_subdept] ||= params[:subdept].to_i if params[:subdept].to_i > 0
@@ -173,9 +167,20 @@ class PhonesController < ApplicationController
   end
   def log_update
     ext = Extension.ext_number(@phone.extension_id)
+    rm  = Room.room_name(@phone.room_id)
     sdp = SubDepartment.subdept_name(@phone.sub_department_id)
-    dr = DiallingRight.find(@phone.dialling_right_id).name
-    log_msg = "id: #{@phone.id}\n#{@phone.user_name}\nsub_department: #{sdp}\nextension: #{ext}\ndialling_right: #{dr}" 
+    ap  = ArchivingPolicy.find(@phone.archiving_policy_id).name
+    clp = ClientPolicy.find(@phone.client_policy_id).name
+    cvp = ClientVersionPolicy.find(@phone.client_version_policy_id).name
+    cp  = ConferencePolicy.find(@phone.conferencing_policy_id).name
+    dpp = DialPlanPolicy.find(@phone.dial_plan_policy_id).name
+    eap = ExternalAccessPolicy.find(@phone.external_access_policy_id).name
+    lp  = LocationPolicy.find(@phone.location_policy_id).name
+    mp  = MobilityPolicy.find(@phone.mobility_policy_id).name
+    pcp = PersistChatPolicy.find(@phone.persist_chat_policy_id).name
+    pp  = PinPolicy.find(@phone.pin_policy_id).name
+    vp  = VoicePolicy.find(@phone.voice_policy_id).name
+    log_msg = "id: #{@phone.id}\n#{@phone.user_name}\nsub_department: #{sdp}\nextension: #{ext}\narchiving_policy: #{ap}\nclient_policy: #{clp}\nclient_version_policy: #{cvp}\nconference_policy: #{cp}\ndial_plan_policy: #{dpp}\nexternal_access_policy: #{eap}\nlocation_policy: #{lp}\nmobility_policy: #{mp}\npersist_chat_policy: #{pcp}\npin_policy: #{pp}\nvoice_policy: #{vp}" 
     ActivityLog.create(:item_type => controller_name.classify, :item_id => @phone.id, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
     #Rails.logger.debug "DEBUG: #{current_user.username} Updated data: ext #{ext} in subdept #{sdp} for #{@phone.user_name}"
   end
