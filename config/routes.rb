@@ -1,4 +1,28 @@
 Phonebook::Application.routes.draw do
+  resources :client_policies
+
+  resources :persist_chat_policies
+
+  resources :mobility_policies
+
+  resources :location_policies
+
+  resources :archiving_policies
+
+  resources :external_access_policies
+
+  resources :pin_policies
+
+  resources :client_version_policies
+
+  resources :conference_policies
+
+  resources :voice_policies
+
+  resources :dial_plan_policies
+
+  resources :policy_types
+  
   resources :rooms
 
   resources :dialling_rights
