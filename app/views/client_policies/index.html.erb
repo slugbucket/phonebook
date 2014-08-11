@@ -1,0 +1,42 @@
+<h2>Listing Client policies</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @client_policies %>
+<% if can? :create, ClientPolicy %>
+<%= link_to 'New Client policy', new_client_policy_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+    <th>Name</th>
+    <th></th>
+    <th>Description</th>
+    <th>Policy type</th>
+    <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @client_policies.each do |client_policy| %>
+    <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+    <%= render :partial => "shared/edit_link", :object => client_policy, :locals => {:display => client_policy.name, :edit_path => edit_client_policy_path(client_policy)} %>
+        <td><%= client_policy.description %></td>
+        <td><%= PolicyType.find(client_policy.policy_type_id).name %></td>
+           <%= render :partial => "shared/delete_link", :object => client_policy, :locals => {:display => "Delete #{client_policy.name}" } %>
+        </tr>
+   <% end -%>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @client_policies %>
+<% if can? :create, ClientPolicy %>
+<%= link_to 'New Client policy', new_client_policy_path %>
+<% end %>
+</div>
+</p>

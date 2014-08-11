@@ -1,0 +1,24 @@
+<p>
+  <strong>Name:</strong>
+  <%= @dial_plan_policy.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dial_plan_policy.description %>
+</p>
+
+<p>
+  <strong>Policy type:</strong>
+  <%= PolicyType.find(@dial_plan_policy.policy_type_id).name %>
+</p>
+
+<p>
+  <strong>Lync policy name:</strong>
+  <%= @dial_plan_policy.lync_policy_name %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_dial_plan_policy_path(@dial_plan_policy) %> |
+<%= link_to 'Back', dial_plan_policies_path %>
+</div>

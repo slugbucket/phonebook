@@ -1,0 +1,42 @@
+<h2>Listing conference policies</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @conference_policies %>
+<% if can? :create, ConferencePolicy %>
+<%= link_to 'New ConferencePolicy', new_conference_policy_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+      <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <th>Policy type</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @conference_policies.each do |conference_policy| %>
+    <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+    <%= render :partial => "shared/edit_link", :object => conference_policy, :locals => {:display => conference_policy.name, :edit_path => edit_conference_policy_path(conference_policy)} %>
+      <td><%= conference_policy.description %></td>
+      <td><%= PolicyType.find(conference_policy.policy_type_id).name %></td>
+      <%= render :partial => "shared/delete_link", :object => conference_policy, :locals => {:display => "Delete #{conference_policy.name}" } %>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @conference_policies %>
+<% if can? :create, ConferencePolicy %>
+<%= link_to 'New ConferencePolicy', new_conference_policy_path %>
+<% end %>
+</div>
+</p>

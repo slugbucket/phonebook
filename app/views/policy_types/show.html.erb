@@ -1,0 +1,14 @@
+<p>
+  <strong>Name:</strong>
+  <%= @policy_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @policy_type.description %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_policy_type_path(@policy_type) %> |
+<%= link_to 'Back', policy_types_path %>
+</div>

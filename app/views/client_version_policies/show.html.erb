@@ -1,0 +1,24 @@
+<p>
+  <strong>Name:</strong>
+  <%= @client_version_policy.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @client_version_policy.description %>
+</p>
+
+<p>
+  <strong>Policy type:</strong>
+  <%= PolicyType.find(@client_version_policy.policy_type_id).name %>
+</p>
+
+<p>
+  <strong>Lync policy name:</strong>
+  <%= @client_version_policy.lync_policy_name %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_client_version_policy_path(@client_version_policy) %> |
+<%= link_to 'Back', client_version_policies_path %>
+</div>

@@ -1,0 +1,43 @@
+<h2>Listing Dial plan policies</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @dial_plan_policies %>
+<% if can? :create, DialPlanPolicy %>
+<%= link_to 'New DialPlanPolicy', new_dial_plan_policy_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+      <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <th>Policy type</th>
+      <th>Lync policy name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dial_plan_policies.each do |dial_plan_policy| %>
+    <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+    <%= render :partial => "shared/edit_link", :object => dial_plan_policy, :locals => {:display => dial_plan_policy.name, :edit_path => edit_dial_plan_policy_path(dial_plan_policy)} %>
+    <td><%= dial_plan_policy.description %></td>
+    <td><%= PolicyType.find(dial_plan_policy.policy_type_id).name %></td>
+    <%= render :partial => "shared/delete_link", :object => dial_plan_policy, :locals => {:display => "Delete #{dial_plan_policy.name}" } %>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @dial_plan_policies %>
+<% if can? :create, DialPlanPolicy %>
+<%= link_to 'New DialPlanPolicy', new_dial_plan_policy_path %>
+<% end %>
+</div>
+</p>

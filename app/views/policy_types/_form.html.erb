@@ -1,0 +1,34 @@
+<%= form_for(@policy_type) do |f| %>
+  <% if @policy_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@policy_type.errors.count, "error") %> prohibited this policy_type from being saved:</h2>
+
+      <ul>
+      <% @policy_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="display: inline; float: left; width: 80%;">
+    <fieldset><legend>Policy type details</legend>
+
+      <div> <!-- wrapper around account details and help divs -->
+  <div class="field" style="float: left;">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :class => "phonebook" %>
+  </div>
+  <div style="clear: both;"></div>
+  <div class="field" style="float: left;">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :cols => 60, :rows => 5,:class => "phonebook" %>
+  </div>
+      </div>
+    </fieldset>
+	</div>
+  <div style="clear: both;"></div>
+  <div class="actions">
+    <%= f.submit :class => "button" %>
+  </div>
+<% end %>

@@ -1,0 +1,24 @@
+<p>
+  <strong>Name:</strong>
+  <%= @conference_policy.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @conference_policy.description %>
+</p>
+
+<p>
+  <strong>Policy type:</strong>
+  <%= PolicyType.find(@conference_policy.policy_type_id).name %>
+</p>
+
+<p>
+  <strong>Lync policy name:</strong>
+  <%= @conference_policy.lync_policy_name %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_conference_policy_path(@conference_policy) %> |
+<%= link_to 'Back', conference_policies_path %>
+</div>

@@ -1,0 +1,40 @@
+<h2>Listing policy types</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @policy_types %>
+<% if can? :create, PolicyType %>
+<%= link_to 'New PolicyType', new_policy_type_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+     <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @policy_types.each do |policy_type| %>
+      <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+        <%= render :partial => "shared/edit_link", :object => policy_type, :locals => {:display => policy_type.name, :edit_path => edit_policy_type_path(policy_type)} %>
+        <td><%= policy_type.description %></td>
+        <%= render :partial => "shared/delete_link", :object => policy_type, :locals => {:display => "Delete #{policy_type.name}" } %>
+      </tr>
+	  <% end %>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @policy_types %>
+<% if can? :create, PolicyType %>
+<%= link_to 'New PolicyType', new_policy_type_path %>
+<% end %>
+</div>
+</p>

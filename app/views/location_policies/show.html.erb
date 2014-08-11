@@ -1,0 +1,24 @@
+<p>
+  <strong>Name:</strong>
+  <%= @location_policy.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @location_policy.description %>
+</p>
+
+<p>
+  <strong>Policy type:</strong>
+  <%= PolicyType.find(@location_policy.policy_type_id).name %>
+</p>
+
+<p>
+  <strong>Lync policy name:</strong>
+  <%= @location_policy.lync_policy_name %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_location_policy_path(@location_policy) %> |
+<%= link_to 'Back', location_policies_path %>
+</div>

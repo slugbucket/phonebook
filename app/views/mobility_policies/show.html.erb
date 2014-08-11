@@ -1,0 +1,24 @@
+<p>
+  <strong>Name:</strong>
+  <%= @mobility_policy.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @mobility_policy.description %>
+</p>
+
+<p>
+  <strong>Policy type:</strong>
+  <%= PolicyType.find(@mobility_policy.policy_type_id).name %>
+</p>
+
+<p>
+  <strong>Lync policy name:</strong>
+  <%= @mobility_policy.lync_policy_name %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_mobility_policy_path(@mobility_policy) %> |
+<%= link_to 'Back', mobility_policies_path %>
+</div>

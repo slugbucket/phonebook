@@ -1,0 +1,44 @@
+<%= form_for(@conference_policy) do |f| %>
+  <% if @conference_policy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@conference_policy.errors.count, "error") %> prohibited this conference_policy from being saved:</h2>
+
+      <ul>
+      <% @conference_policy.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="display: inline; float: left; width: 80%;">
+    <fieldset><legend>Conference policy details</legend>
+
+      <div> <!-- wrapper around account details and help divs -->
+  <div class="field" style="float: left;">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :class => "phonebook" %>
+  </div>
+  <div class="field" style="float: left;">
+    <%= f.label :lync_policy_name %><br />
+    <%= f.text_field :lync_policy_name, :class => "disabled", :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.label :policy_type_id %><br />
+    <!-- %= f.collection_select :policy_type_id, PolicyType.order(:name), :id, :name, {:selected => @conference_policy.policy_type_id, :prompt => 'Policy type', :class => "phonebook", :disabled => true} % -->
+	<%= f.text_field :policy_type_id, :class => "disabled", :disabled => true, :value => PolicyType.find(@conference_policy.policy_type_id).name %>
+  </div>
+  <div style="clear: both;"></div>
+  <div class="field" style="float: left;">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :rows => 5, :cols => 60, :class => "phonebook" %>
+  </div>
+  <div style="clear: both;"></div>
+      </div>
+    </fieldset>
+	</div>
+  <div style="clear: both;"></div>
+  <div class="actions">
+    <%= f.submit :class => "button" %>
+  </div>
+<% end %>

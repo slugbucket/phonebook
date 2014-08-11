@@ -1,0 +1,42 @@
+<h2>Listing mobility policies</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @mobility_policies %>
+<% if can? :create, MobilityPolicy %>
+<%= link_to 'New MobilityPolicy', new_mobility_policy_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+      <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <th>Policy type</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mobility_policies.each do |mobility_policy| %>
+    <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+      <%= render :partial => "shared/edit_link", :object => mobility_policy, :locals => {:display => mobility_policy.name, :edit_path => edit_mobility_policy_path(mobility_policy)} %>
+      <td><%= mobility_policy.description %></td>
+      <td><%= PolicyType.find(mobility_policy.policy_type_id).name %></td>
+      <%= render :partial => "shared/delete_link", :object => mobility_policy, :locals => {:display => "Delete #{mobility_policy.name}" } %>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @mobility_policies %>
+<% if can? :create, MobilityPolicy %>
+<%= link_to 'New MobilityPolicy', new_mobility_policy_path %>
+<% end %>
+</div>
+</p>

@@ -1,0 +1,42 @@
+<h2>Listing location policies</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @location_policies %>
+<% if can? :create, LocationPolicy %>
+<%= link_to 'New LocationPolicy', new_location_policy_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+      <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <th>Policy type</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @location_policies.each do |location_policy| %>
+    <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+    <%= render :partial => "shared/edit_link", :object => location_policy, :locals => {:display => location_policy.name, :edit_path => edit_location_policy_path(location_policy)} %>
+    <td><%= location_policy.description %></td>
+    <td><%= PolicyType.find(location_policy.policy_type_id).name %></td>
+    <%= render :partial => "shared/delete_link", :object => location_policy, :locals => {:display => "Delete #{location_policy.name}" } %>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @location_policies %>
+<% if can? :create, LocationPolicy %>
+<%= link_to 'New LocationPolicy', new_location_policy_path %>
+<% end %>
+</div>
+</p>

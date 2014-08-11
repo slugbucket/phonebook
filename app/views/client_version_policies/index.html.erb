@@ -1,0 +1,42 @@
+<h2>Listing client version policies</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @client_version_policies %>
+<% if can? :create, ClientVersionPolicy %>
+<%= link_to 'New ClientVersionPolicy', new_client_version_policy_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+    <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <th>Policy type</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @client_version_policies.each do |client_version_policy| %>
+    <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+    <%= render :partial => "shared/edit_link", :object => client_version_policy, :locals => {:display => client_version_policy.name, :edit_path => edit_client_version_policy_path(client_version_policy)} %>
+    <td><%= client_version_policy.description %></td>
+    <td><%= PolicyType.find(client_version_policy.policy_type_id).name %></td>
+    <%= render :partial => "shared/delete_link", :object => client_version_policy, :locals => {:display => "Delete #{client_version_policy.name}" } %>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @client_version_policies %>
+<% if can? :create, ClientVersionPolicy %>
+<%= link_to 'New ClientVersionPolicy', new_client_version_policy_path %>
+<% end %>
+</div>
+</p>

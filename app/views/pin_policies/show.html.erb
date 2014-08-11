@@ -1,0 +1,24 @@
+<p>
+  <strong>Name:</strong>
+  <%= @pin_policy.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @pin_policy.description %>
+</p>
+
+<p>
+  <strong>Policy type:</strong>
+  <%= PolicyType.find(@pin_policy.policy_type_id).name %>
+</p>
+
+<p>
+  <strong>Lync policy name:</strong>
+  <%= @pin_policy.lync_policy_name %>
+</p>
+
+<div class="phonebook">
+<%= link_to 'Edit', edit_pin_policy_path(@pin_policy) %> |
+<%= link_to 'Back', pin_policies_path %>
+</div>

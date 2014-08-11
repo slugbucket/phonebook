@@ -1,0 +1,43 @@
+<h2>Listing external access policies</h2>
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @external_access_policies %>
+<% if can? :create, ExternalAccessPolicy %>
+<%= link_to 'New ExternalAccessPolicy', new_external_access_policy_path %>
+<% end %>
+</div>
+</p>
+<br />
+<p style="clear: both">
+<table class="phonebook" cellspacing="0">
+  <thead>
+    <tr class="phonebook">
+      <th>Name</th>
+	  <th></th>
+      <th>Description</th>
+      <th>Policy type</th>
+      <th>Lync policy name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @external_access_policies.each do |external_access_policy| %>
+    <tr class="<%= cycle('ma_row_light', 'ma_row_dark') %>">
+    <%= render :partial => "shared/edit_link", :object => external_access_policy, :locals => {:display => external_access_policy.name, :edit_path => edit_external_access_policy_path(external_access_policy)} %>
+    <td><%= external_access_policy.description %></td>
+    <td><%= PolicyType.find(external_access_policy.policy_type_id).name %></td>
+    <%= render :partial => "shared/delete_link", :object => external_access_policy, :locals => {:display => "Delete #{external_access_policy.name}" } %>
+     </tr>
+     <% end %>
+  </tbody>
+</table>
+
+<p>
+<div class="digg_pagination">  
+<%= will_paginate @external_access_policies %>
+<% if can? :create, ExternalAccessPolicy %>
+<%= link_to 'New ExternalAccessPolicy', new_external_access_policy_path %>
+<% end %>
+</div>
+</p>
