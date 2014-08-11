@@ -26,6 +26,26 @@
   <% end %>
 </p>
 
+<p>
+<strong>Policies</strong>
+  <table class="phonebook" cellspacing="0" cellpadding="0" width="75%">
+  <thead><th>Policy</th><th>Default</th></thead>
+  <tbody>
+  <tr class="ma_row_light"><td>Archiving</td><td><%= ArchivingPolicy.find(@sub_department.archiving_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Client</td><td><%= ClientPolicy.find(@sub_department.client_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Client version</td><td><%= ClientVersionPolicy.find(@sub_department.client_version_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Conferencing</td><td><%= ConferencePolicy.find(@sub_department.conferencing_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Dial plan</td><td><%= DialPlanPolicy.find(@sub_department.dial_plan_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>External access</td><td><%= ExternalAccessPolicy.find(@sub_department.external_access_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Location</td><td><%= LocationPolicy.find(@sub_department.location_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Mobility</td><td><%= MobilityPolicy.find(@sub_department.mobility_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Persistent chat</td><td><%= PersistChatPolicy.find(@sub_department.persist_chat_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Pin</td><td><%= PinPolicy.find(@sub_department.pin_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Voice</td><td><%= VoicePolicy.find(@sub_department.voice_policy_id).name %></td></tr>
+  </tbody>
+</table>
+</p>
+
 <div class="phonebook">
 <%= link_to 'Edit', edit_sub_department_path(@sub_department) %> |
 <%= link_to 'Back', sub_departments_path %>

@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div style="display: inline; float: left; width: 60%;">
+  <div style="display: inline; float: left; width: 100%;">
     <fieldset><legend>Sub-department details</legend>
     <div> <!-- wrapper around  details -->
       <div class="field" style="float: left;">
@@ -30,6 +30,54 @@
       </div>
 	</div>
     </fieldset>
+    	<p>
+	<fieldset><legend>Policies</legend>
+	  <table class="policytable" cellspacing="0" width="100%">
+	  	<tr class="pol_row_head">
+	      <th>Policy</th><th>Global</th><th>Internal</th><th>UK Geo</th><th>National</th><th>International</th><th>Unrestricted</th>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Voice</td><td><%= radio_button("sub_department", "voice_policy_id", "1") %></td><td><%= radio_button("sub_department", "voice_policy_id", "3") %></td><td><%= radio_button("sub_department", "voice_policy_id", "4") %></td><td><%= radio_button("sub_department", "voice_policy_id", "5") %></td><td><%= radio_button("sub_department", "voice_policy_id", "6") %></td><td><%= radio_button("sub_department", "voice_policy_id", "7") %></td>
+		</tr>
+	  	<tr class="pol_row_head">
+	  	  <th>&nbsp;</th><th>Global</th><th>Staff</th><th>Test</th><th colspan="3">&nbsp;</th>
+		</tr>
+		<tr class="pol_row_dark">
+	  	  <td>Client version</td><td><%= radio_button("sub_department", "client_version_policy_id", "1") %></td><td><%= radio_button("sub_department", "client_version_policy_id", "2") %></td><td><%= radio_button("sub_department", "client_version_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Conferencing</td><td><%= radio_button("sub_department", "conferencing_policy_id", "1") %></td><td><%= radio_button("sub_department", "conferencing_policy_id", "2") %></td><td><%= radio_button("sub_department", "conferencing_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_dark">
+	  	  <td>Dial plan</td><td><%= radio_button("sub_department", "dial_plan_policy_id", "1") %></td><td><%= radio_button("sub_department", "dial_plan_policy_id", "2") %></td><td><%= radio_button("sub_department", "dial_plan_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_light">
+	  	  <td>External access</td><td><%= radio_button("sub_department", "external_access_policy_id", "1") %></td><td><%= radio_button("sub_department", "external_access_policy_id", "2") %></td><td><%= radio_button("sub_department", "external_access_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_dark">
+	  	  <td>Mobility</td><td><%= radio_button("sub_department", "mobility_policy_id", "1") %></td><td><%= radio_button("sub_department", "mobility_policy_id", "2") %></td><td><%= radio_button("sub_department", "mobility_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Pin</td><td><%= radio_button("sub_department", "pin_policy_id", "1") %></td><td><%= radio_button("sub_department", "pin_policy_id", "2") %></td><td><%= radio_button("sub_department", "pin_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+	  	<tr class="pol_row_head">
+	      <th>&nbsp;</th><th>Global</th><th colspan="5">&nbsp;</th>
+		</tr>
+	  	<tr class="pol_row_dark">
+	  	  <td>Archiving</td><td><%= radio_button("sub_department", "archiving_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Client</td><td><%= radio_button("sub_department", "client_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_dark">
+		  <td>Location</td><td><%= radio_button("sub_department", "location_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+		  <td>Persistent chat</td><td><%= radio_button("sub_department", "persist_chat_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+      </table>
+	</fieldset>
+	</p>
 
     <div class="actions">
       <%= f.submit :class => 'button' %>

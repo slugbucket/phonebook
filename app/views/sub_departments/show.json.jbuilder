@@ -1,1 +1,1 @@
-json.extract! @sub_department,  :id, :name, :department_id, :first_extension , :last_extension, :created_at, :updated_at
+json.extract! @sub_department,  :id, :name, :department_id, :sub_department_code, :archiving_policy_id, :client_policy_id, :client_version_policy_id, :conferencing_policy_id, :dial_plan_policy_id, :external_access_policy_id, :location_policy_id, :mobility_policy_id, :persist_chat_policy_id, :pin_policy_id, :voice_policy_id, :created_at, :updated_at
