@@ -7,8 +7,12 @@ class Extension < ActiveRecord::Base
     "#{extension}"
   end
   def self.ext_number(id)
-    e = Extension.find(id)
-    "#{e.extension}"
+    begin
+      e = Extension.find(id)
+      "#{e.extension}"
+    rescue
+      "none"
+    end
   end
   # Scope to identify extensions in a given range
   scope :active_extensions, ->(first, last) { where("extension >= ? AND extension <= ?", first, last) }
