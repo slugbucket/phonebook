@@ -1,9 +1,9 @@
 class SubDepartment < ActiveRecord::Base
   belongs_to :phone
   has_one :department
+  has_one :conference_policy, through: :conferencing_policy_id
 
   validates :name, :department_id, :sub_department_code, :presence => true
-  #validates :preferred_extension_range_id, :uniqueness => true
   validate :preferred_uniq_if_notnull
   
   def extension_range_by_id(sd_id)
@@ -13,7 +13,7 @@ class SubDepartment < ActiveRecord::Base
   # Custom validators
   def preferred_uniq_if_notnull
     if SubDepartment.where(" id <> ? AND preferred_extension_range_id = ?", self.id, self.preferred_extension_range_id).any?
-      errors.add(:preferred_extension_range_id, "Cannot select preferred extension range alerady allocated.")
+      errors.add(:preferred_extension_range_id, "Cannot select preferred extension range already allocated.")
     end
   end
   # TODO - Validator to ensure that a preferred extension_range is a valid range
