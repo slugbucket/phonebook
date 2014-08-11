@@ -13,7 +13,7 @@
 <p>
 Because the user name and uid details are pre-populated from an external source, they are not editable.<br />
 </p>
-  <div style="display: inline; float: left; width: 60%;">
+  <div style="display: inline; float: left; width: 100%;">
     <fieldset><legend>Account details</legend>
 
       <div> <!-- wrapper around account details and help divs -->
@@ -21,38 +21,80 @@ Because the user name and uid details are pre-populated from an external source,
           <%= f.label :firstname %><br />
           <%= f.text_field :firstname, {:size => 16, :disabled => true} %>
         </div>
-        <div class="field">
+        <div class="field" style="float: left;">
            <%= f.label :surname %><br />
            <%= f.text_field :surname, {:size => 20, :disabled => true} %>
         </div>
         <div class="field">
-          <%= f.label :uid, "Uid" %><br />
+          <%= f.label :uid, "Username" %><br />
           <%= f.text_field :uid, {:size => 16, :disabled => true} %>
         </div>
-        <div class="field">
+		<div style="clear: both"></div>
+        <div class="field" style="float: left;">
           <%= f.label :sub_department_id, "Sub department" %><br />
           <%= f.collection_select :sub_department_id, SubDepartment.where("department_id IS NOT NULL").order("department_id, name"), :id, :dept_subdept_name, {:prompt => 'Select sub-department'} %><br />
         </div>
-
-
-		<div class="field">
-    <%= f.label :room_id, "Location" %><br />
-    <!-- %= f.text_field :room_ids, "data-pre" => @phone.rooms.map(&:attributes).to_json, :class => "phonebbok" % -->
-	<%= f.text_field :room_id, "data-pre" => Room.select(:id, :name).where(id: @phone.room_id).map(&:attributes).to_json %>
-  </div>
-  
-        <div style="clear: both" />
-  
-  
-        <div class="field" style="float: left; width: 30%;">
+        
+        <div class="field" style="float: left;">
           <%= f.label :extension_id, "Extension" %><br />
           <%= f.collection_select :extension_id, Extension.sub_dept_next(@phone.sub_department_id)+Extension.where(:id => @phone.extension_id), :id, :extension, {:prompt => 'Select extension'} %>  
         </div>
+		<div style="clear: both"></div>
 		<div class="field">
-	      <%= f.label :dialling_right_id, "Dialling right" %><br />
-		  <%= f.collection_select :dialling_right_id, DiallingRight.all, :id, :name, {:prompt => 'Dialling right'} %>
+          <%= f.label :room_id, "Location" %><br />
+          <%= f.text_field :room_id, {:size => 20, "data-pre" => Room.select(:id, :name).where(id: @phone.room_id).map(&:attributes).to_json} %>
+        </div>  
       </div>
-    </fieldset>
+	  <div style="clear: both"></div>
+	</fieldset>
+	<p>
+	<fieldset><legend>Policies</legend>
+	  <table class="policytable" cellspacing="0" width="100%">
+	  	<tr class="pol_row_head">
+	      <th>Policy</th><th>Global</th><th>Internal</th><th>UK Geo</th><th>National</th><th>International</th><th>Unrestricted</th>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Voice</td><td><%= radio_button("phone", "voice_policy_id", "1") %></td><td><%= radio_button("phone", "voice_policy_id", "3") %></td><td><%= radio_button("phone", "voice_policy_id", "4") %></td><td><%= radio_button("phone", "voice_policy_id", "5") %></td><td><%= radio_button("phone", "voice_policy_id", "6") %></td><td><%= radio_button("phone", "voice_policy_id", "7") %></td>
+		</tr>
+	  	<tr class="pol_row_head">
+	  	  <th>&nbsp;</th><th>Global</th><th>Staff</th><th>Test</th><th colspan="3">&nbsp;</th>
+		</tr>
+		<tr class="pol_row_dark">
+	  	  <td>Client version</td><td><%= radio_button("phone", "client_version_policy_id", "1") %></td><td><%= radio_button("phone", "client_version_policy_id", "2") %></td><td><%= radio_button("phone", "client_version_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Conferencing</td><td><%= radio_button("phone", "conferencing_policy_id", "1") %></td><td><%= radio_button("phone", "conferencing_policy_id", "2") %></td><td><%= radio_button("phone", "conferencing_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_dark">
+	  	  <td>Dial plan</td><td><%= radio_button("phone", "dial_plan_policy_id", "1") %></td><td><%= radio_button("phone", "dial_plan_policy_id", "2") %></td><td><%= radio_button("phone", "dial_plan_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_light">
+	  	  <td>External access</td><td><%= radio_button("phone", "external_access_policy_id", "1") %></td><td><%= radio_button("phone", "external_access_policy_id", "2") %></td><td><%= radio_button("phone", "external_access_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_dark">
+	  	  <td>Mobility</td><td><%= radio_button("phone", "mobility_policy_id", "1") %></td><td><%= radio_button("phone", "mobility_policy_id", "2") %></td><td><%= radio_button("phone", "mobility_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Pin</td><td><%= radio_button("phone", "pin_policy_id", "1") %></td><td><%= radio_button("phone", "pin_policy_id", "2") %></td><td><%= radio_button("phone", "pin_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
+		</tr>
+	  	<tr class="pol_row_head">
+	      <th>&nbsp;</th><th>Global</th><th colspan="5">&nbsp;</th>
+		</tr>
+	  	<tr class="pol_row_dark">
+	  	  <td>Archiving</td><td><%= radio_button("phone", "archiving_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+	  	  <td>Client</td><td><%= radio_button("phone", "client_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_dark">
+		  <td>Location</td><td><%= radio_button("phone", "location_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+		<tr class="pol_row_light">
+		  <td>Persistent chat</td><td><%= radio_button("phone", "persist_chat_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
+		</tr>
+      </table>
+	</fieldset>
+	</p>
   </div>
 
   <div style="clear: both;"></div>

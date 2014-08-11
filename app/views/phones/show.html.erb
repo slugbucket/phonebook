@@ -36,14 +36,24 @@ Unallocated
 </p>
 
 <p>
-  <strong>Dialling right:</strong>
-  <% if @phone.dialling_right_id? %>
-  <%= DiallingRight.dialling_right_name(@phone.dialling_right_id) %>
-  <% else %>
-Unallocated
-  <% end %>
+<strong>Policies</strong>
+  <table class="phonebook" cellspacing="0" cellpadding="0" width="75%">
+  <thead><th>Policy</th><th>Setting</th></thead>
+  <tbody>
+  <tr class="ma_row_light"><td>Archiving</td><td><%= ArchivingPolicy.find(@phone.archiving_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Client</td><td><%= ClientPolicy.find(@phone.client_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Client version</td><td><%= ClientVersionPolicy.find(@phone.client_version_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Conferencing</td><td><%= ConferencePolicy.find(@phone.conferencing_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Dial plan</td><td><%= DialPlanPolicy.find(@phone.dial_plan_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>External access</td><td><%= ExternalAccessPolicy.find(@phone.external_access_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Location</td><td><%= LocationPolicy.find(@phone.location_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Mobility</td><td><%= MobilityPolicy.find(@phone.mobility_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Persistent chat</td><td><%= PersistChatPolicy.find(@phone.persist_chat_policy_id).name %></td></tr>
+  <tr class="ma_row_dark"><td>Pin</td><td><%= PinPolicy.find(@phone.pin_policy_id).name %></td></tr>
+  <tr class="ma_row_light"><td>Voice</td><td><%= VoicePolicy.find(@phone.voice_policy_id).name %></td></tr>
+  </tbody>
+</table>
 </p>
-
 <div class="phonebook">
 <%= link_to 'Edit', edit_phone_path(@phone) %> |
 <%= link_to 'Back', phones_path %>
