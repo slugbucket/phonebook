@@ -33,6 +33,18 @@ class Ability
       can [:edit, :update], Phone
       can [:edit, :update, :create, :destroy], Category
       can [:edit, :update, :create, :destroy], Department
+      can [:edit, :update, :create, :destroy], DialPlanPolicy
+      can [:edit, :update, :create, :destroy], VoicePolicy
+      can [:edit, :update, :create, :destroy], ArchivingPolicy
+      can [:edit, :update, :create, :destroy], ConferencePolicy
+      can [:edit, :update, :create, :destroy], PinPolicy
+      can [:edit, :update, :create, :destroy], ExternalAccessPolicy
+      can [:edit, :update, :create, :destroy], ClientPolicy
+      can [:edit, :update, :create, :destroy], ClientVersionPolicy
+      can [:edit, :update, :create, :destroy], LocationPolicy
+      can [:edit, :update, :create, :destroy], MobilityPolicy
+      can [:edit, :update, :create, :destroy], PersistChatPolicy
+      can [:edit, :update, :create, :destroy], PolicyType
       can [:create, :destroy], Extension
       can [:edit, :update, :create, :destroy], ExtensionRange
       can [:edit, :update, :create, :destroy], Role
@@ -43,6 +55,8 @@ class Ability
       can [:edit, :update, :read], Phone
       cannot :manage, Category
       cannot :manage, Department
+      cannot :manage, DiallingRight
+      cannot :manage, Extension
       cannot :manage, SubDepartment
       cannot :manage, ExtensionRange
       cannot :manage, Role
