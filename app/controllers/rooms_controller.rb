@@ -106,9 +106,16 @@ class RoomsController < ApplicationController
       
       if params[:page] then
         session.delete :room_page
+        Rails.logger.debug "DEBUG: Clearing session room for #{params[:page]}."
         session[:room_page] ||= (params[:page].to_i.is_a?(Integer)) ? params[:page].to_i : 1
+        bob = params[:page].to_i.is_a?(Integer)
+        Rails.logger.debug "DEBUG: page number is #{bob} for #{session[:room_page]} from #{params[:page]}." 
       end
       session[:bldng] ||= params[:building].to_i if params[:building].to_i > 0
+      #session.delete :room_sortcol if params[:sort]
+      #session[:room_sortcol] ||= sort_column
+      #session.delete :room_sortdir if params[:sort]
+      #session[:room_sortdir] ||= sort_direction
     end
     def sort_column
       Room.column_names.include?(params[:sort]) ? params[:sort] : "room_statuses.name"
@@ -127,5 +134,6 @@ class RoomsController < ApplicationController
     bf = BuildingFloor.building_floor_name(@room.building_floor_id)
     log_msg = "id: #{@room.id}\nname: #{@room.name}\npublic_name: #{@room.public_name}\nbuilding: #{b}\nbuilding_floor: #{bf}\nroom_status: #{rs}" 
     ActivityLog.create(:item_type => controller_name.classify, :item_id => @room.id, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
+    #Rails.logger.debug "DEBUG: #{current_user.username} Updated data: ext #{ext} in subdept #{sdp} for #{@phone.user_name}"
   end
 end
