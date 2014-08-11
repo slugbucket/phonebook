@@ -97,7 +97,7 @@ Phonebook::Application.routes.draw do
 
   match 'phones/:id/free_extensions', :to => 'phones#free_extensions', :via => [:get, :post]
   
-  match 'sub_departments/:id/default_dialling_right', :to => 'sub_departments#default_dialling_right', :via => [:get]
+  match 'sub_departments/:id/default_policies', :to => 'sub_departments#default_policies', :via => [:get]
 
   match 'search', :to => 'phones#search', :via => [:get, :post], :as => 'search'
   root :to => 'phones#index'
