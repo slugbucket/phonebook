@@ -1,5 +1,5 @@
 /**
- * @author Julian Rawcliffe
+ * @author jrawcliffe
  */
 /*
  * Using the turbolinks gem with Rails 4 can cause problems with jquery
