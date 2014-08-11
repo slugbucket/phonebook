@@ -50,15 +50,15 @@ class ApplicationController < ActionController::Base
   def no_record_errors(exception)
     session.delete :search
     session.delete :room_page
-    redirect_to root_url, :alert => "Missing record error #{exception.message}."
+    redirect_to "/"+request.path.split('/').second, :alert => "Missing record error #{exception.message}."
   end
   def db_invalid_stmt(exception)
     session.delete :search
-    redirect_to root_url, :alert => "Invalid database statement #{exception.message}."
+    redirect_to "/"+request.path.split('/').second, :alert => "Invalid database statement #{exception.message}."
   end
   def template_error(exception)
     session.delete :search
-    redirect_to root_url, :alert => "Template error: #{exception.message}."
+    redirect_to "/"+request.path.split('/').second, :alert => "Template error: #{exception.message}."
   end
   def render_not_found(exception = nil)
     render_exception(404, 'Not Found', exception)
