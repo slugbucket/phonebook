@@ -30,12 +30,8 @@
         <%= f.label :active %><br />
         <%= f.check_box :active %>
       </div>
-	  <div class="field" style="float: left;">
-        <%= f.label :default_dialling_right_id, "Default dialling right" %><br />
-        <%= f.collection_select :default_dialling_right_id, DiallingRight.order(:name), :id, :name, {:selected => @department.default_dialling_right_id,:prompt => 'Dialling right'} %><br />
-       </div>
-	</div>
-    </fieldset>
+	  </div>
+	  </fieldset>
 
     <div class="actions">
       <%= f.submit :class => 'button' %>

@@ -15,7 +15,6 @@
 	  <th></th>
       <th>Category</th>
       <th>Department code</th>
-	  <th>Dialling right</th>
 	  <% if can? :edit, Department %>
       <th></th>
 	  <% end %>
@@ -33,7 +32,6 @@
         <% end %></td>
 		<td><%= Category.find(department.category_id).name %></td>
         <td><%= department.department_code %></td>
-		<td><%= DiallingRight.find(department.default_dialling_right_id).name %>
 		<% if can? :edit, Department %>
         <%= render :partial => "shared/delete_link", :object => department, :locals => {:display => "Delete #{department.id}" } %>
 		<% end %>

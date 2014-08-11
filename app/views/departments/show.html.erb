@@ -14,11 +14,6 @@
 </p>
 
 <p>
-  <strong>Default dialling right:</strong>
-  <%= DiallingRight.dialling_right_name(@department.default_dialling_right_id) %>
-</p>
-
-<p>
   <strong>Extension ranges:</strong>
 		<% if @department.extension_ranges.any? then %>
 		<br />
