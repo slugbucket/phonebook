@@ -21,6 +21,7 @@ class SessionsController < Devise::SessionsController
 
   def log_logout
     log_msg = "Logging out : #{current_user.username}"
+    #Rails.logger.debug log_msg
     ActivityLog.create(:item_type => controller_name.classify, :item_id => 0, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
   end
 end
