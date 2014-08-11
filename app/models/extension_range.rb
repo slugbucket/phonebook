@@ -1,4 +1,6 @@
 class ExtensionRange < ActiveRecord::Base
+  #has_many :department_extensions_ranges
+  #has_many :departments, :through => :department_extension_ranges, :foreign_key => "department_id", :primary_key => "id"
   has_and_belongs_to_many :departments, :join_table => :departments_extension_ranges
 
   validates :first_extension, :last_extension, :presence => true, :uniqueness => true
