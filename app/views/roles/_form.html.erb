@@ -26,7 +26,7 @@ The name field is disabled to prevent blocking access to users of that role.
 		  <div class="field">
           <%= f.label :user_tokens, "Users" %><br />
           <!-- %= f.collection_select :user_tokens, User.order(:username), :id, :username, {:selected => @role.user_tokens}, {:prompt => 'Select role users', :multiple => true, :size => 4} % --><br />
-		  <%= f.collection_select :user_tokens, User.without_role, :id, :username, {:selected => @role.user_tokens}, {:prompt => 'Select role users', :multiple => true, :size => 4} %><br />
+		  <%= f.collection_select :user_tokens, User.all, :id, :username, {:selected => @role.user_tokens}, {:prompt => 'Select role users', :multiple => true, :size => 4} %><br />
         </div>
         </div>
       </div>
