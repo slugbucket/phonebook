@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.1'
 
 # Use mysql as the database for Active Record
-gem 'mysql2', group: :development
+# gem 'mysql2', group: :development
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -54,8 +54,12 @@ gem 'devise'
 gem 'cancan'
 gem 'devise_ldap_authenticatable'
 
+# Database backed sessions rather than cookies
+gem 'activerecord-session_store'
+
 # Use SQL Server as the database adapter
-gem 'activerecord-sqlserver-adapter', group: [:production]
+gem 'tiny_tds'
+gem 'activerecord-sqlserver-adapter', group: [:development, :production]
 
 # Gem for jquery-based tooltips
 gem 'bootstrap-tooltip-rails'
