@@ -22,5 +22,9 @@ module Phonebook
     config.assets.prefix = "/assets"
     config.assets.initialize_on_precompile = false
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+    ActiveRecord::SessionStore::Session.table_name = 'phonebook_sessions'
+    ActiveRecord::SessionStore::Session.primary_key = 'session_id'
+    ActiveRecord::SessionStore::Session.data_column_name = 'phonebook_session_data'
   end
 end
