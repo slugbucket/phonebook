@@ -87,8 +87,8 @@ class DepartmentsController < ApplicationController
   end
   def log_update
     cat = Category.category_name(@department.category_id)
-    dr = DiallingRight.dialling_right_name(@department.default_dialling_right_id)
-    log_msg = "id: #{@department.id}\nname: #{@department.name}\ncategory: #{cat}\n#{@department.department_code}\ndefault_dialling_right: #{dr}"
+    log_msg = "id: #{@department.id}\nname: #{@department.name}\ncategory: #{cat}\n#{@department.department_code}"
+    #Rails.logger.debug "DEBUG: #{log_msg}"
     ActivityLog.create(:item_type => controller_name.classify, :item_id => @department.id, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
   end
 end
