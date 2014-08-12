@@ -82,6 +82,4 @@ class DiallingRightsController < ApplicationController
       log_msg = "id: #{@dialling_right.id}\nname: #{@dialling_right.name}\ndescription: #{@dialling_right.description}"
       ActivityLog.create(:item_type => controller_name.classify, :item_id => @dialling_right.id, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
     end
-  end
 end
-
