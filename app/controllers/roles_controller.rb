@@ -83,8 +83,12 @@ class RolesController < ApplicationController
     params.require(:role).permit(:name, :resource_id, :resource_type, user_tokens: [] )
   end
   def log_update
+    #Rails.logger.debug "DEBUG: Submitted user tokens  are #{params[:role].inspect} for #{params[:controller]}."
+    #Rails.logger.debug "DEBUG: name set to #{@role.name}, resource_id set to #{@role.resource_id}, type set to #{@role.resource_type}"
+    #Rails.logger.debug "DEBUG: #{@role.inspect} for #{params[:controller]}."
     log_msg = "id: #{@role.id}\nname: #{@role.name}\nresource_id: #{@role.resource_id}\nresource_type: #{@role.resource_type}\nusers: " 
     ActivityLog.create(:item_type => controller_name.classify, :item_id => @role.id, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
+    #Rails.logger.debug "DEBUG: #{current_user.username} Updated data: ext #{ext} in subdept #{sdp} for #{@role.user_name}"
   end
 end
 
