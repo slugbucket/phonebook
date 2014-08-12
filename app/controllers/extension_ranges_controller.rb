@@ -104,6 +104,7 @@ class ExtensionRangesController < ApplicationController
       dept = Department.dept_name(@extension_range.department_ids[0])
     end
     log_msg = "id: #{@extension_range.id}\nfirst_extension: #{@extension_range.first_extension}\nlast_extension: #{@extension_range.last_extension}\nDepartment: #{dept}"
+    #Rails.logger.debug "DEBUG: #{log_msg}"
     ActivityLog.create(:item_type => controller_name.classify, :item_id => @extension_range.id, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
   end
 end
