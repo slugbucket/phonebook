@@ -1,0 +1,63 @@
+// Place all the styles related to the PolicyTypes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#policy {
+  background-color: #606060;
+  width: 100%;
+  height: 1.2em;
+}
+ul.policybar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+ul.policybar li {
+  float: left;
+}
+ul.policybar li a:link, ul.policybar li a:visited {
+  display: block;
+  //width: 140px;
+  font-weight: bold;
+  font-size: 80%;
+  color: #ffffff;
+  background-color: #606060; //#dee5f0;
+  text-align: center;
+  padding: 2px 10px 2px 10px;
+  text-decoration: none;
+  //text-transform: uppercase;
+  border-right: 1px solid #606060;
+}
+ul.policybar li a:hover, ul.policybar li a:active {
+  background-color: #dee5f0;
+  color: #606060;
+}
+table.policytable {
+  // background-color: #dee5f0;
+  input[type=text], input[type=radio] {
+    margin: 0px 0px 0px 15px;
+    display: block;
+}
+}
+table.policytable tr {
+    text-align: left;
+}
+table.policytable tr.pol_row_light {
+  background-color: #fff;
+}
+table.policytable tr.pol_row_dark {
+  background-color: #dee5f0;
+}
+table.policytable tr.pol_row_head {
+  background-color: #ccc;
+}
+table.policytable th {
+  text_align: center;
+  padding: 2px 5px 2px 5px;
+}
+.policytable td {
+  padding-left: 10px;
+}
+ table.policytable td input {
+  padding-left: 50px;
+}
