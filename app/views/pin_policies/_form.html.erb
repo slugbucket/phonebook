@@ -26,7 +26,7 @@
   <div class="field">
     <%= f.label :policy_type_id %><br />
     <!-- %= f.collection_select :policy_type_id, PolicyType.order(:name), :id, :name, {:selected => @pin_policy.policy_type_id, :prompt => 'Policy type', :class => "phonebook", :disabled => true} % -->
-	<%= f.text_field :policy_type_id, :class => "disabled", :disabled => true, :value => PolicyType.find(@pin_policy.policy_type_id).name %>
+	<%= f.text_field :policy_type_id, :class => "disabled", :disabled => true, :value => "Pin" %>
   </div>
   <div style="clear: both;"></div>
   <div class="field" style="float: left;">
