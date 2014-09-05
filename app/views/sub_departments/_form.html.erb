@@ -42,6 +42,9 @@
 	  	<tr class="pol_row_head">
 	  	  <th>&nbsp;</th><th>Global</th><th>Staff</th><th>Test</th><th colspan="3">&nbsp;</th>
 		</tr>
+                <tr class="pol_row_light">
+                  <td>Client</td><td><%= radio_button("sub_department", "client_policy_id", "1") %></td><td>&nbsp;</td><td><%= radio_button("sub_department", "client_policy_id", "2") %></td><td colspan="3">&nbsp;</td>
+                </tr>
 		<tr class="pol_row_dark">
 	  	  <td>Client version</td><td><%= radio_button("sub_department", "client_version_policy_id", "1") %></td><td><%= radio_button("sub_department", "client_version_policy_id", "2") %></td><td><%= radio_button("sub_department", "client_version_policy_id", "4") %></td><td colspan="3">&nbsp;</td>
 		</tr>
@@ -63,11 +66,8 @@
 	  	<tr class="pol_row_head">
 	      <th>&nbsp;</th><th>Global</th><th colspan="5">&nbsp;</th>
 		</tr>
-	  	<tr class="pol_row_dark">
+	  	<tr class="pol_row_light">
 	  	  <td>Archiving</td><td><%= radio_button("sub_department", "archiving_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
-		</tr>
-		<tr class="pol_row_light">
-	  	  <td>Client</td><td><%= radio_button("sub_department", "client_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
 		</tr>
 		<tr class="pol_row_dark">
 		  <td>Location</td><td><%= radio_button("sub_department", "location_policy_id", "1") %></td><td colspan="5">&nbsp;</td>
