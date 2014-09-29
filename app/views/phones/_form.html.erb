@@ -37,7 +37,7 @@ Because the user name and uid details are pre-populated from an external source,
         
         <div class="field" style="float: left;">
           <%= f.label :extension_id, "Extension" %><br />
-          <%= f.collection_select :extension_id, Extension.sub_dept_next(@phone.sub_department_id)+Extension.where(:id => @phone.extension_id), :id, :extension, {:prompt => 'Select extension'} %>  
+          <%= f.collection_select :extension_id, Extension.sub_dept_next(@phone.sub_department_id)+Extension.where(:id => @phone.extension_id), :id, :extension, {:include_blank => 'None'} %>  
         </div>
 		<div style="clear: both"></div>
 		<div class="field">
