@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(version: 20140809163722) do
   end
 
   create_table "policy_types", force: true do |t|
-    t.string   "name",        default: "Policy type", null: false
+    t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
