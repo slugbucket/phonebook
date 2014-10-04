@@ -52,6 +52,11 @@ class PhonesController < ApplicationController
       format.json { render json: @extensions } 
     end
   end
+  def extension_list
+    
+    exts = Extension.sub_dept_next(params[:id])
+    render json: exts.map(&:extension)
+  end
 
   # POST /phones
   # POST /phones.json

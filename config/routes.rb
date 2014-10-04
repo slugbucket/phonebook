@@ -96,6 +96,7 @@ Phonebook::Application.routes.draw do
   #   end
 
   match 'phones/:id/free_extensions', :to => 'phones#free_extensions', :via => [:get, :post]
+  match 'phones/:id/extension_list', :to => 'phones#extension_list', :via => [:get, :post]
   
   match 'sub_departments/:id/default_policies', :to => 'sub_departments#default_policies', :via => [:get]
 

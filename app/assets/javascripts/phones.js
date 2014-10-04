@@ -13,19 +13,19 @@ var ready = function() {
 	
   // when the #sub_department field changes
   $("#phone_sub_department_id").change(function() {
-  	//console.log("DEBUG: Get ready for this.");
-  	var sdept = $("#phone_sub_department_id option:selected").val();
+    //console.log("DEBUG: Get ready for this.");
+    var sdept = $("#phone_sub_department_id option:selected").val();
     if (!sdept) {
-  	  sdept = 1;
+      sdept = 1;
     };
-	var c = $("#phone_extension_id option:selected").val();
-	var t = $("#phone_extension_id option:selected").text();
-	// Blank the extension select dropdown
+    var c = $("#phone_extension_id option:selected").val();
+    var t = $("#phone_extension_id option:selected").text();
+    // Blank the extension select dropdown
     $("#phone_extension_id").html('');
-	// make a GET call and replace the content
-	$.getJSON( '/phones/' + sdept + '/free_extensions.json', function(data) {
+      // make a GET call and replace the content
+      $.getJSON( '/phones/' + sdept + '/free_extensions.json', function(data) {
       if(c) {
-	  	$("#phone_extension_id").append($('<option></option>').val(c).html(t));
+	    $("#phone_extension_id").append($('<option></option>').val(c).html(t));
 	  };
 	  for (var x in data) {
 	  	//console.log(x + ':' + data[x].id);
@@ -33,7 +33,6 @@ var ready = function() {
 	  };
 	  $("#phone_extension_id").val(c).attr("selected", "selected");
 	  // or, $("#phone_extension_id option[value='"+c+"']")).attr("selected", "selected");
-	  $("#phone_extension_id").append($('<option></option>').val(0).html("None"));
     });
 	$.getJSON( '/sub_departments/' + sdept + '/default_policies.json', function(data) {
 		$("#phone_voice_policy_id").attr('selected','');
@@ -68,7 +67,12 @@ var ready = function() {
 	});
   });
   $('#phone_room_id').tokenInput('/rooms.json', { crossDomain: false, prePopulate: $('#phone_room_id').data('pre'), theme: 'facebook' });
-
+  //$("#phone_extension_id").focus(function() {
+    //var sdept = $("#phone_sub_department_id option:selected").val();
+    // More or less works: Makes the JSON request but doesn't make any sense of the returned data
+    $( "#phone_extension_id" ).autocomplete({source: '/phones/'+$("#phone_sub_department_id option:selected").val()+'/extension_list.json'});
+    //$( "#phone_extension_id" ).autocomplete({ source: [ {label: "1752", value: "1907"}, {label: "1753", value: "1908"}], select: function( event, ui ) {console.log( "select: " + ui.item.label );ui.item.label = "bob";}});
+  //});
   setTimeout(initOverLabels, 50);
   initOverLabels();
 }; // Used with var ready = function() {
