@@ -10,13 +10,31 @@ class Phone < ActiveRecord::Base
   has_one :persist_chat_policy
   has_one :pin_policy
   has_one :voice_policy
-  has_one :extension
+  #has_one :extension
   has_one :room
 
   validates :archiving_policy_id, :client_version_policy_id, :conferencing_policy_id, :dial_plan_policy_id, :external_access_policy_id, :location_policy_id, :mobility_policy_id, :persist_chat_policy_id, :pin_policy_id, :voice_policy_id, :presence => true
 
-  #attr_reader :extension_tokens, :sub_department_id, :dialling_right_id, :room_id
+  validates :ext_number, allow_blank: true, format: {with: /\A\d+\Z/, message: "must only contain digits or be blank"}
 
+  # Custom validator to ensure that the submitted extension number is within teh 
+  # sub-department's extension ranges
+  validate :is_valid_extension, :is_extension_in_subdept_range, :extension_already_allocated, on: :update
+
+  def is_extension_in_subdept_range
+    errors.add(:ext_number, "#{ext_number} must be within sub-department extension ranges") if ext_number != '' && Extension.sub_dept_extensions(sub_department_id).where(extension: ext_number).count == 0
+  end
+  def extension_already_allocated
+    u = Phone.select(:uid).where(ext_number: ext_number).where.not(uid: uid).ext_number_not_null[0]
+    if u then
+      errors.add(:ext_number, "#{ext_number} already allocated to #{u.uid}")
+    end
+  end
+  def is_valid_extension
+    if ext_number != '' && ! Extension.ext_id(ext_number) then
+      errors.add(:ext_number, "#{ext_number} is not a valid extension number")
+    end
+  end
   #def sub_department_id=(ids)
   #  self.sub_department_ids = ids
   #end
@@ -31,10 +49,10 @@ class Phone < ActiveRecord::Base
   end
   # Search methods
   def self.phones_by_subdept
-    Phone.select("sub_departments.id, sub_departments.name AS subdept_name, phones.id, phones.uid, firstname, surname").joins(:sub_departments)
+    Phone.select("sub_departments.id, sub_departments.name AS subdept_name, phones.id, phones.uid, firstname, surname, ext_number").joins(:sub_departments)
   end
   def self.phones_in_subdept(sdept)
-    Phone.select("phones.id, phones.uid, phones.firstname, phones.surname, phones.room_id, phones.extension_id, phones.sub_department_id").where(:sub_department_id => sdept)
+    Phone.select("phones.id, phones.uid, phones.firstname, phones.surname, phones.room_id, phones.extension_id, ext_number, phones.sub_department_id").where(:sub_department_id => sdept)
   end
   def self.find_by_extension(ext)
     Phone.joins(" INNER JOIN extensions ON phones.extension_id = extensions.id").where("extensions.extension = ?", ext)
@@ -67,6 +85,8 @@ class Phone < ActiveRecord::Base
   end
   # Filter host names by their first letter - used for alphabetic pagination
   scope :by_letter, ->(initial) {where("surname LIKE \'%#{initial}%\'") }
+  scope :extension_in_sub_dept_range, -> {Extension.sub_dept_extensions(sub_department_id).where ext_number: number}
+  scope :ext_number_not_null, -> {where.not(ext_number: nil)}
   # Return all the Phone records in a given sub-department that have at least
   # one policy value matching the sub-departmental default and where a match
   # is found substitute in submitted value from a sub-department update

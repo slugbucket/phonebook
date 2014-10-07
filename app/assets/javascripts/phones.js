@@ -70,8 +70,8 @@ var ready = function() {
   //$("#phone_extension_id").focus(function() {
     //var sdept = $("#phone_sub_department_id option:selected").val();
     // More or less works: Makes the JSON request but doesn't make any sense of the returned data
-    $( "#phone_extension_id" ).autocomplete({source: '/phones/'+$("#phone_sub_department_id option:selected").val()+'/extension_list.json'});
-    //$( "#phone_extension_id" ).autocomplete({ source: [ {label: "1752", value: "1907"}, {label: "1753", value: "1908"}], select: function( event, ui ) {console.log( "select: " + ui.item.label );ui.item.label = "bob";}});
+    //$( "#phone_extension_id" ).autocomplete({source: '/phones/'+$("#phone_sub_department_id option:selected").val()+'/extension_list.json'});
+    $( "#phone_ext_number" ).autocomplete({source: '/phones/'+$("#phone_sub_department_id option:selected").val()+'/extension_list.json'});
   //});
   setTimeout(initOverLabels, 50);
   initOverLabels();

@@ -28,8 +28,8 @@ Unassigned.
 
 <p>
   <strong>Extension:</strong>
-  <% if @phone.extension_id? %>
-  <%= Extension.ext_number(@phone.extension_id) %>
+  <% if @phone.ext_number? %>
+  <%= @phone.ext_number %>
   <% else %>
 Unallocated
   <% end %>

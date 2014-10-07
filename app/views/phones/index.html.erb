@@ -55,8 +55,8 @@ Filter the listed extensions by surname match, room, extension or sub-department
 			<% end %>
         </td>
         <td>
-        	<% if phone.extension_id? %>
-        	<%= Extension.ext_number(phone.extension_id) %>
+            <% if phone.ext_number? %>
+        	<%= phone.ext_number %>
 			<% else %>
 			None
 			<% end %>
