@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140809163722) do
+ActiveRecord::Schema.define(version: 20141004135946) do
 
   create_table "Phonebook_SourceData", id: false, force: true do |t|
     t.integer "LBSNO",                     null: false
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20140809163722) do
     t.integer  "mobility_policy_id",        limit: 2,  default: 1,           null: false
     t.integer  "persist_chat_policy_id",    limit: 2,  default: 1,           null: false
     t.integer  "client_policy_id",          limit: 2,  default: 1,           null: false
+    t.string   "extension",                 limit: 4,  default: "0"
   end
 
   create_table "pin_policies", force: true do |t|
@@ -208,7 +209,7 @@ ActiveRecord::Schema.define(version: 20140809163722) do
   end
 
   create_table "policy_types", force: true do |t|
-    t.string   "name",        default: "Policy type", null: false
+    t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"

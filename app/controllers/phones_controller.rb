@@ -43,6 +43,7 @@ class PhonesController < ApplicationController
 
   # GET /phones/1/free_extensions
   # GET /phones/1/free_extensions.json
+  # Used to populate a select list when a new sub-department has been chosen
   def free_extensions
     sdept = params[:id]
     @extensions = Extension.sub_dept_next(sdept)
@@ -52,11 +53,19 @@ class PhonesController < ApplicationController
       format.json { render json: @extensions } 
     end
   end
+  # GET /phones/1/extension_list
+  # GET /phones/1/extension_list.json
+  # Used by the autocomplete box and passes term parameter to restrict the
+  # list displayed. Replaces free_extensions when usin auotcomplete
+  def extension_list
+    exts = Extension.sub_dept_next(params[:id]).where("extension LIKE \'#{params[:term]}%\'")
+    render json: exts.map(&:extension)
+  end
 
   # POST /phones
   # POST /phones.json
   def create
-    @phone = Phone.new(phone_params)
+    @phone = Phone.new(phone_params) 
     authorize! :create, @phone
 
     respond_to do |format|
@@ -74,6 +83,13 @@ class PhonesController < ApplicationController
   # PATCH/PUT /phones/1.json
   def update
     authorize! :update, @phone
+
+    # Find the extension _id for the submitted number
+    # Done this way to allow for extension to be '' and have a nil extension_id
+    # extension_id will also be nil if non-existent number specified; this is captured
+    # by the model validators
+    @phone.extension_id = Extension.ext_id(phone_params[:ext_number])
+    Rails.logger.debug "DEBUG: Found extension id #{@phone.extension_id} for extension #{phone_params[:ext_number]}."
     
     respond_to do |format|
       if @phone.update(phone_params)
@@ -118,7 +134,7 @@ class PhonesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def phone_params
-      params.require(:phone).permit(:sub_department_id, :extension_id, :room_id, :archiving_policy_id, :client_policy_id, :client_version_policy_id, :conferencing_policy_id, :dial_plan_policy_id, :external_access_policy_id, :location_policy_id, :mobility_policy_id, :persist_chat_policy_id, :pin_policy_id, :voice_policy_id)
+      params.require(:phone).permit(:sub_department_id, :ext_number, :room_id, :archiving_policy_id, :client_policy_id, :client_version_policy_id, :conferencing_policy_id, :dial_plan_policy_id, :external_access_policy_id, :location_policy_id, :mobility_policy_id, :persist_chat_policy_id, :pin_policy_id, :voice_policy_id)
     end
   def set_initials
     #@first_letters = Phone.select("DISTINCT LOWER(SUBSTRING(phones.surname, 1, 1)) AS surname").order("surname").collect{|fl| "#{fl.surname}"}
@@ -166,7 +182,7 @@ class PhonesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
   def log_update
-    ext = Extension.ext_number(@phone.extension_id)
+    #ext = Extension.ext_number(@phone.extension_id)
     rm  = Room.room_name(@phone.room_id)
     sdp = SubDepartment.subdept_name(@phone.sub_department_id)
     ap  = ArchivingPolicy.find(@phone.archiving_policy_id).name
@@ -180,7 +196,7 @@ class PhonesController < ApplicationController
     pcp = PersistChatPolicy.find(@phone.persist_chat_policy_id).name
     pp  = PinPolicy.find(@phone.pin_policy_id).name
     vp  = VoicePolicy.find(@phone.voice_policy_id).name
-    log_msg = "id: #{@phone.id}\n#{@phone.user_name}\nsub_department: #{sdp}\nextension: #{ext}\narchiving_policy: #{ap}\nclient_policy: #{clp}\nclient_version_policy: #{cvp}\nconference_policy: #{cp}\ndial_plan_policy: #{dpp}\nexternal_access_policy: #{eap}\nlocation_policy: #{lp}\nmobility_policy: #{mp}\npersist_chat_policy: #{pcp}\npin_policy: #{pp}\nvoice_policy: #{vp}" 
+    log_msg = "id: #{@phone.id}\n#{@phone.user_name}\nsub_department: #{sdp}\nextension: #{@phone.ext_number}\narchiving_policy: #{ap}\nclient_policy: #{clp}\nclient_version_policy: #{cvp}\nconference_policy: #{cp}\ndial_plan_policy: #{dpp}\nexternal_access_policy: #{eap}\nlocation_policy: #{lp}\nmobility_policy: #{mp}\npersist_chat_policy: #{pcp}\npin_policy: #{pp}\nvoice_policy: #{vp}" 
     ActivityLog.create(:item_type => controller_name.classify, :item_id => @phone.id, :act_action => action_name, :updated_by => current_user.username, :activity => log_msg, :act_tstamp => Time.now)
     #Rails.logger.debug "DEBUG: #{current_user.username} Updated data: ext #{ext} in subdept #{sdp} for #{@phone.user_name}"
   end

@@ -13,62 +13,34 @@ var ready = function() {
 	
   // when the #sub_department field changes
   $("#phone_sub_department_id").change(function() {
-  	//console.log("DEBUG: Get ready for this.");
-  	var sdept = $("#phone_sub_department_id option:selected").val();
+    var sdept = $("#phone_sub_department_id option:selected").val();
     if (!sdept) {
-  	  sdept = 1;
+      sdept = 1;
     };
-	var c = $("#phone_extension_id option:selected").val();
-	var t = $("#phone_extension_id option:selected").text();
-	// Blank the extension select dropdown
-    $("#phone_extension_id").html('');
-	// make a GET call and replace the content
-	$.getJSON( '/phones/' + sdept + '/free_extensions.json', function(data) {
-      if(c) {
-	  	$("#phone_extension_id").append($('<option></option>').val(c).html(t));
-	  };
-	  for (var x in data) {
-	  	//console.log(x + ':' + data[x].id);
-	  	$("#phone_extension_id").append($('<option></option>').val(data[x].id).html(data[x].extension));
-	  };
-	  $("#phone_extension_id").val(c).attr("selected", "selected");
-	  // or, $("#phone_extension_id option[value='"+c+"']")).attr("selected", "selected");
-	  $("#phone_extension_id").append($('<option></option>').val(0).html("None"));
+    $( "#phone_ext_number" ).autocomplete({source: '/phones/'+$("#phone_sub_department_id option:selected").val()+'/extension_list.json'});
+    $.getJSON( '/sub_departments/' + sdept + '/default_policies.json', function(data) {
+      $("#phone_voice_policy_id").attr('selected','');
+      for (var x in data) {
+        // Two ways to dynamically update a select form element
+        //$("#phone_archiving_policy_id option[value='"+data[x].archiving_policy_id+"']").attr('selected', 'selected');
+        //$("#phone_archiving_policy_id").val(data[x].archiving_policy_id).attr('selected', 'selected');
+        $("#phone_archiving_policy_id_"+data[x].archiving_policy_id).prop('checked', 'true');
+        $("#phone_client_policy_id_"+data[x].client_policy_id).prop('checked', 'true');
+        $("#phone_client_version_policy_id_"+data[x].client_version_policy_id).prop('checked', 'true');
+        $("#phone_conferencing_policy_id_"+data[x].conferencing_policy_id).prop('checked', 'true');
+        $("#phone_dial_plan_policy_id_"+data[x].dial_plan_policy_id).prop('checked', 'true');
+        $("#phone_external_access_policy_id_"+data[x].external_access_policy_id).prop('checked', 'true');
+        $("#phone_location_policy_id_"+data[x].location_policy_id).prop('checked', 'true');
+        $("#phone_mobility_policy_id_"+data[x].mobility_policy_id).prop('checked', 'true');
+        $("#phone_persist_chat_policy_id_"+data[x].persist_chat_policy_id).prop('checked', 'true');
+        $("#phone_pin_policy_id_"+data[x].pin_policy_id).prop('checked', 'true');
+        $("#phone_voice_policy_id_"+data[x].voice_policy_id).prop('checked', 'true');
+      };
     });
-	$.getJSON( '/sub_departments/' + sdept + '/default_policies.json', function(data) {
-		$("#phone_voice_policy_id").attr('selected','');
-		for (var x in data) {
-			//console.log("Found archiving policy "+data[x].df_archiving_policy_id+".");
-			//console.log("Found voice policy "+data[x].df_voice_policy_id+".");
-			// Two ways to dynamically update a select form element
-			//$("#phone_archiving_policy_id option[value='"+data[x].archiving_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_archiving_policy_id").val(data[x].archiving_policy_id).attr('selected', 'selected');
-			//$("#phone_client_policy_id option[value='"+data[x].client_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_client_version_policy_id option[value='"+data[x].client_version_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_conferencing_policy_id option[value='"+data[x].conferencing_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_dial_plan_policy_id option[value='"+data[x].dial_plan_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_external_access_policy_id option[value='"+data[x].external_access_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_location_policy_id option[value='"+data[x].location_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_mobility_policy_id option[value='"+data[x].mobility_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_persist_chat_policy_id option[value='"+data[x].persist_chat_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_pin_policy_id option[value='"+data[x].pin_policy_id+"']").attr('selected', 'selected');
-			//$("#phone_voice_policy_id option[value='"+data[x].voice_policy_id+"']").attr('selected', 'selected');
-			$("#phone_archiving_policy_id_"+data[x].archiving_policy_id).prop('checked', 'true');
-			$("#phone_client_policy_id_"+data[x].client_policy_id).prop('checked', 'true');
-			$("#phone_client_version_policy_id_"+data[x].client_version_policy_id).prop('checked', 'true');
-			$("#phone_conferencing_policy_id_"+data[x].conferencing_policy_id).prop('checked', 'true');
-			$("#phone_dial_plan_policy_id_"+data[x].dial_plan_policy_id).prop('checked', 'true');
-			$("#phone_external_access_policy_id_"+data[x].external_access_policy_id).prop('checked', 'true');
-			$("#phone_location_policy_id_"+data[x].location_policy_id).prop('checked', 'true');
-			$("#phone_mobility_policy_id_"+data[x].mobility_policy_id).prop('checked', 'true');
-			$("#phone_persist_chat_policy_id_"+data[x].persist_chat_policy_id).prop('checked', 'true');
-			$("#phone_pin_policy_id_"+data[x].pin_policy_id).prop('checked', 'true');
-			$("#phone_voice_policy_id_"+data[x].voice_policy_id).prop('checked', 'true');
-		};
-	});
   });
   $('#phone_room_id').tokenInput('/rooms.json', { crossDomain: false, prePopulate: $('#phone_room_id').data('pre'), theme: 'facebook' });
-
+  // Autocomlete the extension text field
+  $( "#phone_ext_number" ).autocomplete({source: '/phones/'+$("#phone_sub_department_id option:selected").val()+'/extension_list.json'});
   setTimeout(initOverLabels, 50);
   initOverLabels();
 }; // Used with var ready = function() {
