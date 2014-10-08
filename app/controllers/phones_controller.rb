@@ -43,7 +43,7 @@ class PhonesController < ApplicationController
 
   # GET /phones/1/free_extensions
   # GET /phones/1/free_extensions.json
-  # Ueed to populate a select list when a new sub-department has been chosen
+  # Used to populate a select list when a new sub-department has been chosen
   def free_extensions
     sdept = params[:id]
     @extensions = Extension.sub_dept_next(sdept)
