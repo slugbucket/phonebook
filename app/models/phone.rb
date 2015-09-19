@@ -64,7 +64,7 @@ class Phone < ActiveRecord::Base
   # passed to the Phone.update method (even though it's deprecated) when updating a
   # Phone in another controller (sub_departments)
   def to_hash
-    {"id"                       => "#{id}",
+    {"id"                        => "#{id}",
      "uid"                       => "#{uid}",
      "firstname"                 => firstname,
      "surname"                   => surname,
