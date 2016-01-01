@@ -34,8 +34,8 @@ test:
 production:
   adapter: sqlserver
   mode: dblib
-  dataserver: MSSQL-SERVER
-  host: dbserver.example.com
-  database: phonebook
-  username: phonebook_live
-  password: db_passwd
+  dataserver: <%= ENV["PHONEBOOK_DATASERVER"] %>
+  host: <%= ENV["PHONEBOOK_DBHOST"] %>
+  database: <%= ENV["PHONEBOOK_DATABASE"] %>
+  username: <%= ENV["PHONEBOOK_DBUSER"] %>
+  password: <%= ENV["PHONEBOOK_PASSWD"] %>
